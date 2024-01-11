@@ -1,6 +1,11 @@
 const Footer = (props) => {
   return (
-    <footer className="pt-4 pb-4" style={{ backgroundColor: "#02214e" }}>
+    <footer
+      className="w-100 pt-4 pb-4 sticky-bottom"
+      style={{
+        backgroundColor: "#02214e",
+      }}
+    >
       <div className="container">
         <h4
           className="d-flex justify-content-center align-items-center text-center"

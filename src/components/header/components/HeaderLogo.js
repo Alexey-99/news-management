@@ -1,6 +1,6 @@
 const Logo = (props) => {
   return (
-    <div className="d-flex align-items-center">
+    <div className="d-flex align-items-center me-5">
       <img
         className="bg-white"
         style={{ borderRadius: "20%" }}
