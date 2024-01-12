@@ -160,7 +160,7 @@ const HaveNewsTagItem = (props) => {
       <tr>
         <td>
           <div>
-            <p>{tag.name}</p>
+            <p className="text-uppercase">{tag.name}</p>
           </div>
           {responceException.length > 0 && (
             <div

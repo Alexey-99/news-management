@@ -158,7 +158,7 @@ const TagForAddToNewsItem = (props) => {
   return (
     <tr>
       <td>
-        {tag.name}
+        <p className="text-uppercase">{tag.name}</p>
         {responceException.length > 0 && (
           <div
             style={{
