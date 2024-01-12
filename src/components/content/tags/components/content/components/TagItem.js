@@ -469,7 +469,9 @@ const TagItem = (props) => {
   return (
     <tr>
       <td>{tag.id}</td>
-      <td>{tag.name}</td>
+      <td>
+        <p className="text-uppercase">{tag.name}</p>
+      </td>
       <td className="text-center">{tag.countNews}</td>
       {userRole === ROLE_ADMIN && (
         <td>
