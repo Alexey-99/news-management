@@ -7,7 +7,11 @@ import {
 import AccordionAllTagsForAddToNews from "./all/AccordionAllTagsForAddToNews";
 import TableHaveNewsTags from "./having/TableHaveNewsTags";
 import { Button, Modal } from "react-bootstrap";
-import { ROLE_ADMIN, ROLE_GUEST } from "../../../../../../../../role/UserRole";
+import {
+  ROLE_ADMIN,
+  ROLE_GUEST,
+  ROLE_USER,
+} from "../../../../../../../../role/UserRole";
 import {
   getJwtTokenSessionStorageParam,
   removeJwtTokenSessionStorageParam,
@@ -22,8 +26,7 @@ const ModalViewTags = (props) => {
 
   const newsId = props.valueNewsId;
   const newsCountHavingTags = props.valueCountHavingTags;
-
-  const [isNeedInit, setIsNeedInit] = useState(true);
+  
   const [havingNewsTags, setHavingNewsTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
 
@@ -88,15 +91,6 @@ const ModalViewTags = (props) => {
       });
   };
 
-  if (isNeedInit) {
-    setIsNeedInit(false);
-    if (newsCountHavingTags > 0) {
-      getAllTagsByNewsId();
-    } else {
-      getAllTags([]);
-    }
-  }
-
   const removeAllTagsFromNews = async () => {
     const token = getJwtTokenSessionStorageParam();
     validationJwtTokenAdmin(token)
@@ -150,38 +144,46 @@ const ModalViewTags = (props) => {
   return (
     <div>
       <div>
-        <Button
-          style={{ borderColor: "rgb(2, 33, 78)" }}
-          variant=""
-          onClick={() => {
-            setIsShowViewTagModal(true);
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather feather-plus-circle"
+        {(userRole === ROLE_USER || userRole === ROLE_ADMIN) && (
+          <Button
+            style={{ borderColor: "rgb(2, 33, 78)" }}
+            variant=""
+            onClick={() => {
+              setIsShowViewTagModal(true);
+              if (newsCountHavingTags > 0) {
+                getAllTagsByNewsId();
+              } else {
+                getAllTags([]);
+              }
+            }}
           >
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="16"></line>
-            <line x1="8" y1="12" x2="16" y2="12"></line>
-          </svg>
-        </Button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-plus-circle"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </Button>
+        )}
       </div>
       <div>
+
         <Modal
           size="xl"
           show={isShowViewTagModal}
           backdrop="static"
           onHide={() => {
-            console.log(isChangedNews)
+            console.log(isChangedNews);
             if (isChangedNews) {
               props.onChangeNews();
             }

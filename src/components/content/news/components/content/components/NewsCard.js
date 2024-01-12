@@ -333,19 +333,21 @@ const NewsCard = (props) => {
                   />
                 </div>
                 <div>
-                  <ModalViewTags
-                    valueLocale={locale}
-                    valueUserRole={userRole}
-                    onChangeUserRole={(userRole) =>
-                      props.onChangeUserRole(userRole)
-                    }
-                    valueNewsId={news.id}
-                    valueCountHavingTags={news.countTags}
-                    onChangeNews={() => {
-                      getAllTagsByNewsId();
-                      props.onChangeNews();
-                    }}
-                  />
+                  {(userRole === ROLE_USER || userRole === ROLE_ADMIN) && (
+                    <ModalViewTags
+                      valueLocale={locale}
+                      valueUserRole={userRole}
+                      onChangeUserRole={(userRole) =>
+                        props.onChangeUserRole(userRole)
+                      }
+                      valueNewsId={news.id}
+                      valueCountHavingTags={news.countTags}
+                      onChangeNews={() => {
+                        getAllTagsByNewsId();
+                        props.onChangeNews();
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </div>
