@@ -5,9 +5,506 @@ const AuthorPagination = (props) => {
   const maxNumberPage = props.valueMaxNumberPage;
   const size = props.valueSize;
 
-  const arrPages = [];
-  for (let i = 1; i <= maxNumberPage; i++) {
-    arrPages.push(i);
+  let ulPagesEl = "";
+  if (maxNumberPage <= 3) {
+    const arrPages = [];
+    for (let i = 1; i <= maxNumberPage; i++) {
+      arrPages.push(i);
+    }
+    ulPagesEl = arrPages.map((page) => {
+      if (page === numberPage) {
+        return (
+          <li
+            key={page}
+            className="page-item  me-3 ms-3  active"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+              {page}
+            </button>
+          </li>
+        );
+      } else {
+        return (
+          <li
+            key={page}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(page);
+              }}
+            >
+              {page}
+            </button>
+          </li>
+        );
+      }
+    });
+  } else {
+    if (numberPage === 1) {
+      const arrPages = [numberPage, numberPage + 1];
+      ulPagesEl = arrPages
+        .map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+        .concat(
+          <li
+            key={numberPage + 2}
+            className="page-item  me-3 ms-3 disabled"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+              ...
+            </button>
+          </li>
+        )
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage === 2 && numberPage + 1 === maxNumberPage - 1) {
+      const arrPages = [numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = arrPages
+        .map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage === 2 && numberPage + 1 !== maxNumberPage - 1) {
+      const arrPages = [numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = arrPages
+        .map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+        .concat(
+          <li
+            key={numberPage + 2}
+            className="page-item  me-3 ms-3 disabled"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+              ...
+            </button>
+          </li>
+        )
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage > 2 && numberPage < maxNumberPage - 2) {
+      const arrPages = [numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = Array.of(
+        <li
+          key={numberPage - 2}
+          className="page-item  me-3 ms-3 disabled"
+          style={{
+            width: "50px",
+          }}
+        >
+          <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+            ...
+          </button>
+        </li>
+      )
+        .concat(
+          arrPages.map((page) => {
+            if (page === numberPage) {
+              return (
+                <li
+                  key={page}
+                  className="page-item  me-3 ms-3  active"
+                  style={{
+                    width: "50px",
+                  }}
+                >
+                  <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                    {page}
+                  </button>
+                </li>
+              );
+            } else {
+              return (
+                <li
+                  key={page}
+                  className="page-item  me-3 ms-3"
+                  style={{
+                    width: "50px",
+                  }}
+                >
+                  <button
+                    className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                    onClick={() => {
+                      props.onChoosedNumberPage(page);
+                    }}
+                  >
+                    {page}
+                  </button>
+                </li>
+              );
+            }
+          })
+        )
+        .concat(
+          <li
+            key={numberPage + 2}
+            className="page-item  me-3 ms-3 disabled"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+              ...
+            </button>
+          </li>
+        )
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage > 2 && numberPage + 1 === maxNumberPage - 1) {
+      const arrPages = [numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = Array.of(
+        <li
+          key={numberPage - 2}
+          className="page-item  me-3 ms-3 disabled"
+          style={{
+            width: "50px",
+          }}
+        >
+          <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+            ...
+          </button>
+        </li>
+      )
+        .concat(
+          arrPages.map((page) => {
+            if (page === numberPage) {
+              return (
+                <li
+                  key={page}
+                  className="page-item  me-3 ms-3  active"
+                  style={{
+                    width: "50px",
+                  }}
+                >
+                  <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                    {page}
+                  </button>
+                </li>
+              );
+            } else {
+              return (
+                <li
+                  key={page}
+                  className="page-item  me-3 ms-3"
+                  style={{
+                    width: "50px",
+                  }}
+                >
+                  <button
+                    className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                    onClick={() => {
+                      props.onChoosedNumberPage(page);
+                    }}
+                  >
+                    {page}
+                  </button>
+                </li>
+              );
+            }
+          })
+        )
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage === maxNumberPage - 1) {
+      const arrPages = [numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = Array.of(
+        <li
+          key={numberPage - 2}
+          className="page-item  me-3 ms-3 disabled"
+          style={{
+            width: "50px",
+          }}
+        >
+          <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+            ...
+          </button>
+        </li>
+      ).concat(
+        arrPages.map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+      );
+    } else if (numberPage === maxNumberPage) {
+      const arrPages = [numberPage - 1, numberPage];
+      ulPagesEl = Array.of(
+        <li
+          key={numberPage - 2}
+          className="page-item  me-3 ms-3 disabled"
+          style={{
+            width: "50px",
+          }}
+        >
+          <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+            ...
+          </button>
+        </li>
+      ).concat(
+        arrPages.map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+      );
+    }
   }
 
   return (
@@ -52,42 +549,7 @@ const AuthorPagination = (props) => {
               </button>
             </li>
           )}
-          {arrPages.map((page) => {
-            if (page === numberPage) {
-              return (
-                <li
-                  key={page}
-                  className="page-item  me-3 ms-3  active"
-                  style={{
-                    width: "50px",
-                  }}
-                >
-                  <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
-                    {page}
-                  </button>
-                </li>
-              );
-            } else {
-              return (
-                <li
-                  key={page}
-                  className="page-item  me-3 ms-3"
-                  style={{
-                    width: "50px",
-                  }}
-                >
-                  <button
-                    className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
-                    onClick={() => {
-                      props.onChoosedNumberPage(page);
-                    }}
-                  >
-                    {page}
-                  </button>
-                </li>
-              );
-            }
-          })}
+          {ulPagesEl}
           {numberPage < maxNumberPage && (
             <li
               className="page-item  me-3 ms-3"

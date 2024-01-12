@@ -379,10 +379,11 @@ const NewsCard = (props) => {
               {createCommentFormModal}
             </div>
           </div>
-          {userRole === ROLE_ADMIN && (
-            <div className="card-footer">
-              <div className=" d-flex justify-content-between align-items-center">
-                <span className="text-body-secondary">{news.id}</span>
+
+          <div className="card-footer">
+            <div className=" d-flex justify-content-between align-items-center">
+              <span className="text-body-secondary">{news.id}</span>
+              {userRole === ROLE_ADMIN && (
                 <div>
                   <button
                     className="me-2 ms-2 bg-transparent"
@@ -471,36 +472,36 @@ const NewsCard = (props) => {
                     </svg>
                   </button>
                 </div>
-              </div>
-              {isShowConfirmDeleteNewsBtns && (
-                <div>
-                  <div>
-                    {responceException.length > 0 && (
-                      <div
-                        style={{
-                          background: "#ff000073",
-                          padding: "5px",
-                          margin: "5px",
-                          borderRadius: "20px",
-                        }}
-                      >
-                        <p
-                          style={{
-                            margin: 0,
-                            color: "white",
-                            paddingLeft: "10px",
-                          }}
-                        >
-                          {responceException}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div>{confirmDeleteNewsBtnsEl}</div>
-                </div>
               )}
             </div>
-          )}
+            {isShowConfirmDeleteNewsBtns && (
+              <div>
+                <div>
+                  {responceException.length > 0 && (
+                    <div
+                      style={{
+                        background: "#ff000073",
+                        padding: "5px",
+                        margin: "5px",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          margin: 0,
+                          color: "white",
+                          paddingLeft: "10px",
+                        }}
+                      >
+                        {responceException}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                <div>{confirmDeleteNewsBtnsEl}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
