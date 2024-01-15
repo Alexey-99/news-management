@@ -5,13 +5,9 @@ import {
   updateCommentQuery,
 } from "../../../../../../../../query/Comment";
 import { validationJwtTokenAdmin } from "../../../../../../../../query/Auth";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../../../../params/SessionStorageParams";
 import CustomDateTime from "../../../../../../../CustomDateTime";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../../../locate/Locale";
+import { getJwtTokenLocaleStorageParam, removeJwtTokenLocaleStorageParam, setUserRoleLocaleStorageParam } from "../../../../../../../../params/LocaleStorageParams";
 
 const CommentItem = (props) => {
   const userRole = props.valueUserRole;
@@ -24,7 +20,7 @@ const CommentItem = (props) => {
     useState(false);
 
   const changeComment = async () => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -42,8 +38,8 @@ const CommentItem = (props) => {
                 const responseJson = await responce.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -61,8 +57,8 @@ const CommentItem = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
@@ -76,7 +72,7 @@ const CommentItem = (props) => {
   };
 
   const deleteComment = async () => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -90,8 +86,8 @@ const CommentItem = (props) => {
                 const responseJson = await responce.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -109,8 +105,8 @@ const CommentItem = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);

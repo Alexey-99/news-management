@@ -4,17 +4,13 @@ import {
   ROLE_GUEST,
   ROLE_USER,
 } from "../../../../../../../../../../role/UserRole";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../../../../../../params/SessionStorageParams";
 import { deleteTagByIdFromNewsByIdQuery } from "../../../../../../../../../../query/Tag";
 import { validationJwtTokenUser } from "../../../../../../../../../../query/Auth";
 import {
   LOCALE_EN,
   LOCALE_RU,
 } from "../../../../../../../../../../locate/Locale";
+import { getJwtTokenLocaleStorageParam, removeJwtTokenLocaleStorageParam, setUserRoleLocaleStorageParam } from "../../../../../../../../../../params/LocaleStorageParams";
 
 const HaveNewsTagItem = (props) => {
   const userRole = props.valueUserRole;
@@ -27,7 +23,7 @@ const HaveNewsTagItem = (props) => {
 
   const deleteTagFromNews = async () => {
     const newsId = props.valueNewsId;
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenUser(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -41,8 +37,8 @@ const HaveNewsTagItem = (props) => {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -61,8 +57,8 @@ const HaveNewsTagItem = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);

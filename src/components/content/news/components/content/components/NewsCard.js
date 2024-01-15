@@ -9,21 +9,18 @@ import {
 } from "../../../../../../role/UserRole";
 import ContentNewCommentForm from "./comments/CreateNewCommentForm";
 import ChangeNewsForm from "./form/ChangeNewsForm";
-import {
-  deleteNewsByIdQuery,
-  removeAllTagsFromNewsByNewsIdQuery,
-} from "../../../../../../query/News";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../../params/SessionStorageParams";
+import { deleteNewsByIdQuery } from "../../../../../../query/News";
 import { validationJwtTokenAdmin } from "../../../../../../query/Auth";
 import CustomDateTime from "../../../../../CustomDateTime";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../locate/Locale";
 import ModalViewTags from "./tags/modal/ModalViewTags";
 import ModalViewComments from "./comments/ModalViewComments";
 import { getAllTagsByNewsIdQuery } from "../../../../../../query/Tag";
+import {
+  getJwtTokenLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "../../../../../../params/LocaleStorageParams";
 
 const NewsCard = (props) => {
   const userRole = props.valueUserRole;
@@ -43,7 +40,7 @@ const NewsCard = (props) => {
   const [responceException, setResponceException] = useState("");
 
   const deleteNews = async () => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -57,8 +54,8 @@ const NewsCard = (props) => {
                 const responseJson = await responce.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -76,8 +73,8 @@ const NewsCard = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);

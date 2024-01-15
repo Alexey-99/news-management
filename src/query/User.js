@@ -1,4 +1,4 @@
-import { getLocaleSessionStorageParam } from "../params/SessionStorageParams";
+import { getLocaleLocaleStorageParam } from "../params/LocaleStorageParams";
 
 const PREFIX_BEARER = "Bearer ";
 const URL_USER_CONTROLLER = "http://localhost:8081/api/v2/user";
@@ -8,7 +8,7 @@ const PARAM_NAME_SORT_FIELD = "sort-field";
 const PARAM_NAME_SORT_TYPE = "sort-type";
 
 export const registrationUserQuery = async (user) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/registration`;
   return await fetch(url, {
     mode: "cors",
@@ -26,7 +26,7 @@ export const changeUserRoleQuery = async (token, userLogin, roleId) => {
     userLogin: userLogin,
     roleId: roleId,
   };
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/role`;
   return await fetch(url, {
     mode: "cors",
@@ -45,7 +45,7 @@ export const changeUserLoginQuery = async (token, userId, newLogin) => {
     userId: userId,
     newLogin: newLogin,
   };
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/login`;
   return await fetch(url, {
     mode: "cors",
@@ -60,7 +60,7 @@ export const changeUserLoginQuery = async (token, userId, newLogin) => {
 };
 
 export const deleteUserByIdQuery = async (token, userId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/${userId}`;
   return await fetch(url, {
     mode: "cors",
@@ -80,7 +80,7 @@ export const getAllUsersQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/all?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -94,7 +94,7 @@ export const getAllUsersQuery = async (
 };
 
 export const getUserByIdQuery = async (token, id) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/${id}`;
   return await fetch(url, {
     mode: "cors",
@@ -108,7 +108,7 @@ export const getUserByIdQuery = async (token, id) => {
 };
 
 export const getUserByLoginQuery = async (token, login) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/login/${login}`;
   return await fetch(url, {
     mode: "cors",
@@ -129,7 +129,7 @@ export const getUsersByRoleQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_USER_CONTROLLER}/role/${role}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",

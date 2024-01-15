@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { validationJwtTokenAdmin } from "../../../../../../../query/Auth";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../../../params/SessionStorageParams";
 import { updateNewsQuery } from "../../../../../../../query/News";
 import { ROLE_GUEST } from "../../../../../../../role/UserRole";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../../locate/Locale";
+import { getJwtTokenLocaleStorageParam, removeJwtTokenLocaleStorageParam, setUserRoleLocaleStorageParam } from "../../../../../../../params/LocaleStorageParams";
 
 const ChangeNewsForm = (props) => {
   const userRole = props.valueUserRole;
@@ -27,7 +23,7 @@ const ChangeNewsForm = (props) => {
       content: contentNews,
       authorName: authorLoginNews,
     };
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -65,8 +61,8 @@ const ChangeNewsForm = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);

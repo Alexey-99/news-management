@@ -1,9 +1,9 @@
 import { Modal } from "react-bootstrap";
 import {
-  removeJwtTokenSessionStorageParam,
-  setCodeContentSectionSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../params/SessionStorageParams.js";
+  removeJwtTokenLocaleStorageParam,
+  setCodeContentLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "../../params/LocaleStorageParams.js";
 import { ROLE_ADMIN, ROLE_GUEST, ROLE_USER } from "../../role/UserRole.js";
 import Logo from "./components/HeaderLogo.js";
 import { useState } from "react";
@@ -25,6 +25,7 @@ const Header = (props) => {
   const userRole = props.valueUserRole;
   const locale = props.valueLocale;
   const codeSection = props.valueCodeSection;
+  const expiredDateJwtToken = props.valueExpiredDateJwtToken;
 
   const [isShowModalSign, setIsShowModalSign] = useState(false);
   const [isActiveBtnSignUpForm, setIsActiveBtnSignUpForm] = useState(false);
@@ -93,18 +94,26 @@ const Header = (props) => {
             onChangeUserRole={(userRole) => {
               props.onChangeUserRole(userRole);
               setIsShowModalSign(false);
-              setUserRoleSessionStorageParam(userRole);
+              setUserRoleLocaleStorageParam(userRole);
             }}
+            onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
+              props.onChangeExpiredDateJwtToken(expiredDateJwtToken);
+            }}
+            valueExpiredDateJwtToken={expiredDateJwtToken}
           />
         )}
         {isActiveBtnSignUpForm && (
           <SignUpForm
+            onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
+              props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
+            }
+            valueExpiredDateJwtToken={expiredDateJwtToken}
             valueLocale={locale}
             valueUserRole={userRole}
             onChangeUserRole={(userRole) => {
               props.onChangeUserRole(userRole);
               setIsShowModalSign(false);
-              setUserRoleSessionStorageParam(userRole);
+              setUserRoleLocaleStorageParam(userRole);
             }}
           />
         )}
@@ -138,11 +147,13 @@ const Header = (props) => {
                         props.onChangeUserRole(userRole);
                       }}
                       valueUserRole={userRole}
+                      onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
+                        props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
+                      }
+                      valueExpiredDateJwtToken={expiredDateJwtToken}
                     />
                   );
-                  setCodeContentSectionSessionStorageParam(
-                    CODE_CONTENT_SECTION_NEWS
-                  );
+                  setCodeContentLocaleStorageParam(CODE_CONTENT_SECTION_NEWS);
                 }}
               >
                 <h4
@@ -163,6 +174,10 @@ const Header = (props) => {
                 onClick={() => {
                   props.onChangeSection(
                     <TagsContentSection
+                      onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
+                        props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
+                      }
+                      valueExpiredDateJwtToken={expiredDateJwtToken}
                       valueLocale={props.valueLocale}
                       onChangeUserRole={(userRole) =>
                         props.onChangeUserRole(userRole)
@@ -170,9 +185,7 @@ const Header = (props) => {
                       valueUserRole={userRole}
                     />
                   );
-                  setCodeContentSectionSessionStorageParam(
-                    CODE_CONTENT_SECTION_TAGS
-                  );
+                  setCodeContentLocaleStorageParam(CODE_CONTENT_SECTION_TAGS);
                 }}
               >
                 <h4
@@ -198,9 +211,13 @@ const Header = (props) => {
                         props.onChangeUserRole(userRole)
                       }
                       valueUserRole={userRole}
+                      onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
+                        props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
+                      }
+                      valueExpiredDateJwtToken={expiredDateJwtToken}
                     />
                   );
-                  setCodeContentSectionSessionStorageParam(
+                  setCodeContentLocaleStorageParam(
                     CODE_CONTENT_SECTION_AUTHORS
                   );
                 }}
@@ -224,6 +241,10 @@ const Header = (props) => {
                   onClick={() => {
                     props.onChangeSection(
                       <UsersContentSection
+                        onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
+                          props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
+                        }
+                        valueExpiredDateJwtToken={expiredDateJwtToken}
                         valueLocale={props.valueLocale}
                         onChangeUserRole={(userRole) =>
                           props.onChangeUserRole(userRole)
@@ -231,7 +252,7 @@ const Header = (props) => {
                         valueUserRole={userRole}
                       />
                     );
-                    setCodeContentSectionSessionStorageParam(
+                    setCodeContentLocaleStorageParam(
                       CODE_CONTENT_SECTION_USERS
                     );
                   }}
@@ -274,8 +295,9 @@ const Header = (props) => {
                       style={{ color: "white" }}
                       onClick={() => {
                         props.onChangeUserRole(ROLE_GUEST);
-                        removeJwtTokenSessionStorageParam();
-                        setUserRoleSessionStorageParam(ROLE_GUEST);
+                        removeJwtTokenLocaleStorageParam();
+                        setUserRoleLocaleStorageParam(ROLE_GUEST);
+                        props.onChangeExpiredDateJwtToken("");
                       }}
                     >
                       {(locale === LOCALE_EN && "sign out") ||

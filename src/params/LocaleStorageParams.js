@@ -2,14 +2,12 @@
 
 const CODE_CONTENT_SECTION = "CODE_CONTENT_SECTION";
 
-export const getCodeContentSectionSessionStorageParam = () => {
-  return sessionStorage.getItem(CODE_CONTENT_SECTION);
+export const getCodeContentLocaleStorageParam = () => {
+  return localStorage.getItem(CODE_CONTENT_SECTION);
 };
 
-export const setCodeContentSectionSessionStorageParam = (
-  codeContentSection
-) => {
-  sessionStorage.setItem(CODE_CONTENT_SECTION, codeContentSection);
+export const setCodeContentLocaleStorageParam = (codeContentSection) => {
+  localStorage.setItem(CODE_CONTENT_SECTION, codeContentSection);
 };
 
 //OTHER
@@ -17,33 +15,44 @@ export const setCodeContentSectionSessionStorageParam = (
 const JWT_TOKEN = "JWT_TOKEN";
 const USER_ROLE = "USER_ROLE";
 const CURRENT_LANGUAGE = "CURRENT_LANGUAGE";
+const EXPIRTED_DATE_TIME_Jwt_TOKEN = "EXPIRTED_DATE_TIME_Jwt_TOKEN";
 
-export const getJwtTokenSessionStorageParam = () => {
-  return sessionStorage.getItem(JWT_TOKEN);
+export const getJwtTokenLocaleStorageParam = () => {
+  return localStorage.getItem(JWT_TOKEN);
 };
 
-export const setJwtTokenSessionStorageParam = (token) => {
-  sessionStorage.setItem(JWT_TOKEN, token);
+export const setJwtTokenLocaleStorageParam = (token) => {
+  localStorage.setItem(JWT_TOKEN, token);
 };
 
-export const removeJwtTokenSessionStorageParam = () => {
-  sessionStorage.removeItem(JWT_TOKEN);
+export const removeJwtTokenLocaleStorageParam = () => {
+  localStorage.removeItem(JWT_TOKEN);
 };
 
-export const getLocaleSessionStorageParam = () => {
-  return sessionStorage.getItem(CURRENT_LANGUAGE);
+export const getLocaleLocaleStorageParam = () => {
+  return localStorage.getItem(CURRENT_LANGUAGE);
 };
 
-export const setLocaleSessionStorageParam = (language) => {
-  sessionStorage.setItem(CURRENT_LANGUAGE, language);
+export const setLocaleLocaleStorageParam = (language) => {
+  localStorage.setItem(CURRENT_LANGUAGE, language);
 };
 
-export const getUserRoleSessionStorageParam = () => {
-  return sessionStorage.getItem(USER_ROLE);
+export const getUserRoleLocaleStorageParam = () => {
+  return localStorage.getItem(USER_ROLE);
 };
 
-export const setUserRoleSessionStorageParam = (userRole) => {
-  sessionStorage.setItem(USER_ROLE, userRole);
+export const setUserRoleLocaleStorageParam = (userRole) => {
+  localStorage.setItem(USER_ROLE, userRole);
+};
+
+export const getExpiredDateJwtTokenLocaleStorageParam = () => {
+  return localStorage.getItem(EXPIRTED_DATE_TIME_Jwt_TOKEN);
+};
+
+export const setExpiredDateJwtTokenLocaleStorageParam = (
+  expiredDateJwtToken
+) => {
+  localStorage.setItem(EXPIRTED_DATE_TIME_Jwt_TOKEN, expiredDateJwtToken);
 };
 
 //NEWS
@@ -57,83 +66,82 @@ const NEWS_TAGS_SORT_TYPE = "NEWS_TAGS_SORT_TYPE";
 const NEWS_SEARCH_DESCRIPTION = "NEWS_SEARCH_DESCRIPTION";
 const NEWS_SEARCH_TYPE = "NEWS_SEARCH_TYPE";
 
-export const getNewsNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_NUMBER_PAGE);
+export const getNewsNumberPageLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_NUMBER_PAGE);
 };
 
-export const setNewsNumberPageSessionStorageParam = (numberPage) => {
-  sessionStorage.setItem(NEWS_NUMBER_PAGE, numberPage);
+export const setNewsNumberPageLocaleStorageParam = (numberPage) => {
+  localStorage.setItem(NEWS_NUMBER_PAGE, numberPage);
 };
 
-export const getNewsMaxNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_MAX_NUMBER_PAGE);
+export const getNewsMaxNumberPageLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_MAX_NUMBER_PAGE);
 };
 
-export const setNewsMaxNumberPageSessionStorageParam = (maxNumberPage) => {
-  sessionStorage.setItem(NEWS_MAX_NUMBER_PAGE, maxNumberPage);
+export const setNewsMaxNumberPageLocaleStorageParam = (maxNumberPage) => {
+  localStorage.setItem(NEWS_MAX_NUMBER_PAGE, maxNumberPage);
 };
 
-export const getNewsSizePageSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_SIZE_PAGE);
+export const getNewsSizePageLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_SIZE_PAGE);
 };
 
-export const setNewsSizePageSessionStorageParam = (newsSizePage) => {
-  sessionStorage.setItem(NEWS_SIZE_PAGE, newsSizePage);
+export const setNewsSizePageLocaleStorageParam = (newsSizePage) => {
+  localStorage.setItem(NEWS_SIZE_PAGE, newsSizePage);
 };
 
-export const getNewsSortFieldSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_SORT_FIELD);
+export const getNewsSortFieldLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_SORT_FIELD);
 };
 
-export const setNewsSortFieldSessionStorageParam = (newsSortField) => {
-  sessionStorage.setItem(NEWS_SORT_FIELD, newsSortField);
+export const setNewsSortFieldLocaleStorageParam = (newsSortField) => {
+  localStorage.setItem(NEWS_SORT_FIELD, newsSortField);
 };
 
-export const getNewsSortTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_SORT_TYPE);
+export const getNewsSortTypeLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_SORT_TYPE);
 };
 
-export const setNewsSortTypeSessionStorageParam = (newsSortType) => {
-  sessionStorage.setItem(NEWS_SORT_TYPE, newsSortType);
+export const setNewsSortTypeLocaleStorageParam = (newsSortType) => {
+  localStorage.setItem(NEWS_SORT_TYPE, newsSortType);
 };
 
-export const getNewsTagsSortTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_TAGS_SORT_TYPE);
+export const getNewsTagsSortTypeLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_TAGS_SORT_TYPE);
 };
 
-export const setNewsTagsSortTypeSessionStorageParam = (newsTagsSortType) => {
-  sessionStorage.setItem(NEWS_TAGS_SORT_TYPE, newsTagsSortType);
+export const setNewsTagsSortTypeLocaleStorageParam = (newsTagsSortType) => {
+  localStorage.setItem(NEWS_TAGS_SORT_TYPE, newsTagsSortType);
 };
 
-
-export const removeNewsTagsSortTypeSessionStorageParam = () => {
-  sessionStorage.removeItem(NEWS_TAGS_SORT_TYPE);
+export const removeNewsTagsSortTypeLocaleStorageParam = () => {
+  localStorage.removeItem(NEWS_TAGS_SORT_TYPE);
 };
 
-export const getNewsSearchDescriptionSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_SEARCH_DESCRIPTION);
+export const getNewsSearchDescriptionLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_SEARCH_DESCRIPTION);
 };
 
-export const setNewsSearchDescriptionSessionStorageParam = (
+export const setNewsSearchDescriptionLocaleStorageParam = (
   searchDescription
 ) => {
-  sessionStorage.setItem(NEWS_SEARCH_DESCRIPTION, searchDescription);
+  localStorage.setItem(NEWS_SEARCH_DESCRIPTION, searchDescription);
 };
 
-export const removeNewsSearchDescriptionSessionStorageParam = () => {
-  sessionStorage.removeItem(NEWS_SEARCH_DESCRIPTION);
+export const removeNewsSearchDescriptionLocaleStorageParam = () => {
+  localStorage.removeItem(NEWS_SEARCH_DESCRIPTION);
 };
 
-export const getNewsSearchTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(NEWS_SEARCH_TYPE);
+export const getNewsSearchTypeLocaleStorageParam = () => {
+  return localStorage.getItem(NEWS_SEARCH_TYPE);
 };
 
-export const setNewsSearchTypeSessionStorageParam = (searchType) => {
-  sessionStorage.setItem(NEWS_SEARCH_TYPE, searchType);
+export const setNewsSearchTypeLocaleStorageParam = (searchType) => {
+  localStorage.setItem(NEWS_SEARCH_TYPE, searchType);
 };
 
-export const removeNewsSearchTypeSessionStorageParam = () => {
-  sessionStorage.removeItem(NEWS_SEARCH_TYPE);
+export const removeNewsSearchTypeLocaleStorageParam = () => {
+  localStorage.removeItem(NEWS_SEARCH_TYPE);
 };
 
 //TAGS

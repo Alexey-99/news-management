@@ -12,13 +12,13 @@ import {
   ROLE_GUEST,
   ROLE_USER,
 } from "../../../../../../../../role/UserRole";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../../../../params/SessionStorageParams";
 import { validationJwtTokenAdmin } from "../../../../../../../../query/Auth";
 import { removeAllTagsFromNewsByNewsIdQuery } from "../../../../../../../../query/News";
+import {
+  getJwtTokenLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "../../../../../../../../params/LocaleStorageParams";
 
 const ModalViewTags = (props) => {
   const userRole = props.valueUserRole;
@@ -26,7 +26,7 @@ const ModalViewTags = (props) => {
 
   const newsId = props.valueNewsId;
   const newsCountHavingTags = props.valueCountHavingTags;
-  
+
   const [havingNewsTags, setHavingNewsTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
 
@@ -92,7 +92,7 @@ const ModalViewTags = (props) => {
   };
 
   const removeAllTagsFromNews = async () => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -108,8 +108,8 @@ const ModalViewTags = (props) => {
                 const responseJson = await responce.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -127,8 +127,8 @@ const ModalViewTags = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
@@ -177,7 +177,6 @@ const ModalViewTags = (props) => {
         )}
       </div>
       <div>
-
         <Modal
           size="xl"
           show={isShowViewTagModal}

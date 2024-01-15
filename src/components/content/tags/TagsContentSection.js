@@ -38,7 +38,7 @@ import {
   setTagsSizePageSessionStorageParam,
   setTagsSortFieldSessionStorageParam,
   setTagsSortTypeSessionStorageParam,
-} from "../../../params/SessionStorageParams";
+} from "../../../params/LocaleStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import { ASC, DESC } from "./components/sort/SortType";
 import { LOCALE_EN, LOCALE_RU } from "../../../locate/Locale";

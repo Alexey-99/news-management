@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { registrationUserQuery } from "../../../../../query/User";
-import {
-  createJwtTokenQuery,
-  validationJwtTokenAdmin,
-} from "../../../../../query/Auth";
+import { validationJwtTokenAdmin } from "../../../../../query/Auth";
 import { ROLE_GUEST } from "../../../../../role/UserRole";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../params/SessionStorageParams";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../locate/Locale";
+import {
+  getJwtTokenLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "../../../../../params/LocaleStorageParams";
 
 const CreateUserForm = (props) => {
   const userRole = props.valueUserRole;
@@ -23,7 +19,7 @@ const CreateUserForm = (props) => {
   const [responceException, setResponceException] = useState("");
 
   const createUser = async () => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     const registrationUser = {
       login: login,
       password: password,
@@ -40,8 +36,8 @@ const CreateUserForm = (props) => {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -61,8 +57,8 @@ const CreateUserForm = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);

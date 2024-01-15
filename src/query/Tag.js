@@ -1,4 +1,4 @@
-import { getLocaleSessionStorageParam } from "../params/SessionStorageParams";
+import { getLocaleLocaleStorageParam } from "../params/LocaleStorageParams";
 
 const PREFIX_BEARER = "Bearer ";
 const URL_TAG_CONTROLLER = "http://localhost:8081/api/v2/tag";
@@ -8,7 +8,7 @@ const PARAM_NAME_SORT_FIELD = "sort-field";
 const PARAM_NAME_SORT_TYPE = "sort-type";
 
 export const createTagQuery = async (token, tag) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}`;
   return await fetch(url, {
     mode: "cors",
@@ -23,7 +23,7 @@ export const createTagQuery = async (token, tag) => {
 };
 
 export const getTagByIdQuery = async (tagId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/${tagId}`;
   return await fetch(url, {
     mode: "cors",
@@ -36,7 +36,7 @@ export const getTagByIdQuery = async (tagId) => {
 };
 
 export const updateTagQuery = async (token, tag) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/${tag.id}`;
   return await fetch(url, {
     mode: "cors",
@@ -51,7 +51,7 @@ export const updateTagQuery = async (token, tag) => {
 };
 
 export const deleteTagByIdQuery = async (token, tagId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/${tagId}`;
   return await fetch(url, {
     mode: "cors",
@@ -70,7 +70,7 @@ export const getAllTagsQueryWithPages = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/all/page?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -83,7 +83,7 @@ export const getAllTagsQueryWithPages = async (
 };
 
 export const getAllTagsQuery = async (sortType) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/all?${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -96,7 +96,7 @@ export const getAllTagsQuery = async (sortType) => {
 };
 
 export const removeTagByIdFromAllNewsQuery = async (token, tagId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/all-news/${tagId}`;
   return await fetch(url, {
     mode: "cors",
@@ -110,7 +110,7 @@ export const removeTagByIdFromAllNewsQuery = async (token, tagId) => {
 };
 
 export const deleteTagByIdFromNewsByIdQuery = async (token, tagId, newsId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/from-news?tag=${tagId}&news=${newsId}`;
   return await fetch(url, {
     mode: "cors",
@@ -130,7 +130,7 @@ export const getTagsByNewsIdQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/news/page/${newsId}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -143,7 +143,7 @@ export const getTagsByNewsIdQuery = async (
 };
 
 export const getAllTagsByNewsIdQuery = async (newsId, sortType) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/news/${newsId}?${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -162,7 +162,7 @@ export const getTagsByPartOfNameQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/part-name/${partOfName}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -175,7 +175,7 @@ export const getTagsByPartOfNameQuery = async (
 };
 
 export const addTagByIdToNewsByIdQuery = async (token, tagId, newsId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_TAG_CONTROLLER}/to-news?tag=${tagId}&news=${newsId}`;
   return await fetch(url, {
     mode: "cors",

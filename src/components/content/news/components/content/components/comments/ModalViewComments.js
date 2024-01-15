@@ -12,12 +12,8 @@ import CommentsList from "./CommentsList";
 import ContentNewCommentForm from "./CreateNewCommentForm";
 import { Button, Modal } from "react-bootstrap";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../../locate/Locale";
-import {
-  getJwtTokenSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "../../../../../../../params/SessionStorageParams";
 import { validationJwtTokenAdmin } from "../../../../../../../query/Auth";
+import { getJwtTokenLocaleStorageParam, removeJwtTokenLocaleStorageParam, setUserRoleLocaleStorageParam } from "../../../../../../../params/LocaleStorageParams";
 
 const ModalViewComments = (props) => {
   const userRole = props.valueUserRole;
@@ -66,7 +62,7 @@ const ModalViewComments = (props) => {
   };
 
   const deleteAllCommentsFromNews = async () => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -80,8 +76,8 @@ const ModalViewComments = (props) => {
                 const responseJson = await responce.json();
                 setResponceException(responseJson.errorMessage);
                 props.onChangeUserRole(ROLE_GUEST);
-                setUserRoleSessionStorageParam(ROLE_GUEST);
-                removeJwtTokenSessionStorageParam();
+                setUserRoleLocaleStorageParam(ROLE_GUEST);
+                removeJwtTokenLocaleStorageParam();
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);
@@ -99,8 +95,8 @@ const ModalViewComments = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
@@ -116,20 +112,20 @@ const ModalViewComments = (props) => {
   return (
     <div>
       <div>
-      <Button
-        style={{ borderColor: "rgb(2, 33, 78)" }}
-        variant=""
-        onClick={() => {
-          setIsShowModalCommentsList(true);
-          if (newsCountComments > 0) {
-            getCommentsByNewsId();
-          }
-        }}
-      >
-        {(locale === LOCALE_RU && `Показать комментарии `) ||
-          (locale === LOCALE_EN && `Show commets `)}
-        ({newsCountComments})
-      </Button>
+        <Button
+          style={{ borderColor: "rgb(2, 33, 78)" }}
+          variant=""
+          onClick={() => {
+            setIsShowModalCommentsList(true);
+            if (newsCountComments > 0) {
+              getCommentsByNewsId();
+            }
+          }}
+        >
+          {(locale === LOCALE_RU && `Показать комментарии `) ||
+            (locale === LOCALE_EN && `Show commets `)}
+          ({newsCountComments})
+        </Button>
       </div>
       <div>
         <Modal

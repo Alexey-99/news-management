@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { registrationUserQuery } from "../../../../query/User";
 import { createJwtTokenQuery } from "../../../../query/Auth";
-import { setJwtTokenSessionStorageParam } from "../../../../params/SessionStorageParams";
+import { setJwtTokenLocaleStorageParam } from "../../../../params/LocaleStorageParams";
 import { LOCALE_EN, LOCALE_RU } from "../../../../locate/Locale";
 
 const SignUpForm = (props) => {
@@ -32,8 +32,9 @@ const SignUpForm = (props) => {
                 const responseJson = await response.json();
                 const token = responseJson.token;
                 const userRole = responseJson.userRole;
-                setJwtTokenSessionStorageParam(token);
+                setJwtTokenLocaleStorageParam(token);
                 props.onChangeUserRole(userRole);
+                props.onChangeExpiredDateJwtToken(responseJson.expiredDate);
               } else if (response.status === 400) {
                 const responseJson = await response.json();
                 setResponceException(responseJson.errorMessage);

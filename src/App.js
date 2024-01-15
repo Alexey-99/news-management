@@ -5,15 +5,17 @@ import { useState } from "react";
 import { ROLE_ADMIN, ROLE_GUEST, ROLE_USER } from "./role/UserRole";
 import { LOCALE_EN, LOCALE_RU } from "./locate/Locale";
 import {
-  getCodeContentSectionSessionStorageParam,
-  getJwtTokenSessionStorageParam,
-  getLocaleSessionStorageParam,
-  getUserRoleSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
-  setCodeContentSectionSessionStorageParam,
-  setLocaleSessionStorageParam,
-  setUserRoleSessionStorageParam,
-} from "./params/SessionStorageParams";
+  getCodeContentLocaleStorageParam,
+  getExpiredDateJwtTokenLocaleStorageParam,
+  getJwtTokenLocaleStorageParam,
+  getLocaleLocaleStorageParam,
+  getUserRoleLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  setCodeContentLocaleStorageParam,
+  setExpiredDateJwtTokenLocaleStorageParam,
+  setLocaleLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "./params/LocaleStorageParams";
 import { validationJwtTokenAdmin, validationJwtTokenUser } from "./query/Auth";
 import {
   CODE_CONTENT_SECTION_AUTHORS,
@@ -29,15 +31,19 @@ const App = () => {
   const [isNeedInit, setIsNeedInit] = useState(true);
   const [userRole, setRole] = useState(ROLE_GUEST);
 
+  const [expiredDateJwtToken, setExpiredDateJwtToken] = useState(
+    new Date(getExpiredDateJwtTokenLocaleStorageParam())
+  );
+
   const findLocale = () => {
     let result = LOCALE_EN;
-    const languageLocale = getLocaleSessionStorageParam();
+    const languageLocale = getLocaleLocaleStorageParam();
     if (languageLocale !== null && languageLocale === LOCALE_RU) {
       result = LOCALE_RU;
     } else if (languageLocale !== null && languageLocale === LOCALE_EN) {
       result = LOCALE_EN;
     } else {
-      setLocaleSessionStorageParam(LOCALE_EN);
+      setLocaleLocaleStorageParam(LOCALE_EN);
       result = LOCALE_EN;
     }
     return result;
@@ -52,10 +58,18 @@ const App = () => {
         valueLocale={locale}
         onChangeUserRole={(userRole) => setRole(userRole)}
         valueUserRole={role}
+        onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
+          setExpiredDateJwtToken(new Date(expiredDateJwtToken));
+          setExpiredDateJwtTokenLocaleStorageParam(
+            new Date(expiredDateJwtToken)
+          );
+          console.log(expiredDateJwtToken);
+        }}
+        valueExpiredDateJwtToken={expiredDateJwtToken}
       />
     );
     const codeContentSectionSessionStorage =
-      getCodeContentSectionSessionStorageParam();
+      getCodeContentLocaleStorageParam();
     if (
       codeContentSectionSessionStorage !== null &&
       codeContentSectionSessionStorage === CODE_CONTENT_SECTION_TAGS
@@ -65,6 +79,14 @@ const App = () => {
           valueLocale={locale}
           onChangeUserRole={(userRole) => setRole(userRole)}
           valueUserRole={role}
+          onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
+            setExpiredDateJwtToken(new Date(expiredDateJwtToken));
+            setExpiredDateJwtTokenLocaleStorageParam(
+              new Date(expiredDateJwtToken)
+            );
+            console.log(expiredDateJwtToken);
+          }}
+          valueExpiredDateJwtToken={expiredDateJwtToken}
         />
       );
       setContentSection(result);
@@ -79,6 +101,14 @@ const App = () => {
           valueLocale={locale}
           onChangeUserRole={(userRole) => setRole(userRole)}
           valueUserRole={role}
+          onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
+            setExpiredDateJwtToken(new Date(expiredDateJwtToken));
+            setExpiredDateJwtTokenLocaleStorageParam(
+              new Date(expiredDateJwtToken)
+            );
+            console.log(expiredDateJwtToken);
+          }}
+          valueExpiredDateJwtToken={expiredDateJwtToken}
         />
       );
       setContentSection(result);
@@ -91,6 +121,14 @@ const App = () => {
           valueLocale={locale}
           onChangeUserRole={(userRole) => setRole(userRole)}
           valueUserRole={role}
+          onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
+            setExpiredDateJwtToken(new Date(expiredDateJwtToken));
+            setExpiredDateJwtTokenLocaleStorageParam(
+              new Date(expiredDateJwtToken)
+            );
+            console.log(expiredDateJwtToken);
+          }}
+          valueExpiredDateJwtToken={expiredDateJwtToken}
         />
       );
       setContentSection(result);
@@ -101,75 +139,75 @@ const App = () => {
       setContentSection(result);
     } else {
       setContentSection(result);
-      setCodeContentSectionSessionStorageParam(CODE_CONTENT_SECTION_NEWS);
+      setCodeContentLocaleStorageParam(CODE_CONTENT_SECTION_NEWS);
     }
     return result;
   };
 
   const findUserRole = async () => {
     let result = ROLE_GUEST;
-    const roleStorage = getUserRoleSessionStorageParam();
+    const roleStorage = getUserRoleLocaleStorageParam();
     if (roleStorage !== null && roleStorage !== "") {
       if (roleStorage === ROLE_USER) {
-        const token = getJwtTokenSessionStorageParam();
+        const token = getJwtTokenLocaleStorageParam();
         validationJwtTokenUser(token)
           .then((response) => {
             if (response.ok) {
-              setUserRoleSessionStorageParam(ROLE_USER);
+              setUserRoleLocaleStorageParam(ROLE_USER);
               setRole(ROLE_USER);
               result = ROLE_USER;
               const locale = findLocale();
               findContentSection(ROLE_USER, locale);
             } else {
-              removeJwtTokenSessionStorageParam();
-              setUserRoleSessionStorageParam(ROLE_GUEST);
+              removeJwtTokenLocaleStorageParam();
+              setUserRoleLocaleStorageParam(ROLE_GUEST);
               setRole(ROLE_GUEST);
               const locale = findLocale();
               findContentSection(ROLE_GUEST, locale);
             }
           })
           .catch(() => {
-            removeJwtTokenSessionStorageParam();
-            setUserRoleSessionStorageParam(ROLE_GUEST);
+            removeJwtTokenLocaleStorageParam();
+            setUserRoleLocaleStorageParam(ROLE_GUEST);
             setRole(ROLE_GUEST);
             const locale = findLocale();
             findContentSection(ROLE_GUEST, locale);
           });
       } else if (roleStorage === ROLE_ADMIN) {
-        const token = getJwtTokenSessionStorageParam();
+        const token = getJwtTokenLocaleStorageParam();
         validationJwtTokenAdmin(token)
           .then((response) => {
             if (response.ok) {
-              setUserRoleSessionStorageParam(ROLE_ADMIN);
+              setUserRoleLocaleStorageParam(ROLE_ADMIN);
               setRole(ROLE_ADMIN);
               result = ROLE_ADMIN;
               const locale = findLocale();
               findContentSection(ROLE_ADMIN, locale);
             } else {
-              setUserRoleSessionStorageParam(ROLE_GUEST);
-              removeJwtTokenSessionStorageParam();
+              setUserRoleLocaleStorageParam(ROLE_GUEST);
+              removeJwtTokenLocaleStorageParam();
               setRole(ROLE_GUEST);
               const locale = findLocale();
               findContentSection(ROLE_GUEST, locale);
             }
           })
           .catch(() => {
-            removeJwtTokenSessionStorageParam();
-            setUserRoleSessionStorageParam(ROLE_GUEST);
+            removeJwtTokenLocaleStorageParam();
+            setUserRoleLocaleStorageParam(ROLE_GUEST);
             setRole(ROLE_GUEST);
             const locale = findLocale();
             findContentSection(ROLE_GUEST, locale);
           });
       } else {
-        removeJwtTokenSessionStorageParam();
-        setUserRoleSessionStorageParam(ROLE_GUEST);
+        removeJwtTokenLocaleStorageParam();
+        setUserRoleLocaleStorageParam(ROLE_GUEST);
         setRole(ROLE_GUEST);
         const locale = findLocale();
         findContentSection(ROLE_GUEST, locale);
       }
     } else {
-      removeJwtTokenSessionStorageParam();
-      setUserRoleSessionStorageParam(ROLE_GUEST);
+      removeJwtTokenLocaleStorageParam();
+      setUserRoleLocaleStorageParam(ROLE_GUEST);
       setRole(ROLE_GUEST);
       const locale = findLocale();
       findContentSection(ROLE_GUEST, locale);
@@ -201,7 +239,16 @@ const App = () => {
               (locale === LOCALE_RU && "Привет пользователь")))}
       </div>
       <Header
-        valueCodeSection={getCodeContentSectionSessionStorageParam()}
+        onChangeExpiredDateJwtToken={(expiredDate) => {
+          setExpiredDateJwtToken(new Date(expiredDate));
+          setExpiredDateJwtTokenLocaleStorageParam(new Date(expiredDate));
+          console.log(new Date(expiredDate));
+          console.log(new Date(expiredDate) - new Date());
+          console.log(new Date(expiredDate) - new Date() - 10000);
+          console.log(new Date(expiredDate) - new Date() - 10000 > 0);
+        }}
+        valueExpiredDateJwtToken={expiredDateJwtToken}
+        valueCodeSection={getCodeContentLocaleStorageParam()}
         valueLocale={locale}
         valueUserRole={userRole}
         onChangeUserRole={(userRole) => {
@@ -211,7 +258,7 @@ const App = () => {
         onChangeLocale={(locale) => {
           setLocale(locale);
           findContentSection(userRole, locale);
-          setLocaleSessionStorageParam(locale);
+          setLocaleLocaleStorageParam(locale);
         }}
         onChangeSection={(section) => setContentSection(section)}
       />

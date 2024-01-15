@@ -1,4 +1,4 @@
-import { getLocaleSessionStorageParam } from "../params/SessionStorageParams";
+import { getLocaleLocaleStorageParam } from "../params/LocaleStorageParams";
 
 const PREFIX_BEARER = "Bearer ";
 const URL_AUTHOR_CONTROLLER = "http://localhost:8081/api/v2/author";
@@ -8,7 +8,7 @@ const PARAM_NAME_SORT_FIELD = "sort-field";
 const PARAM_NAME_SORT_TYPE = "sort-type";
 
 export const createAuthorQuery = async (token, author) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}`;
   return await fetch(url, {
     mode: "cors",
@@ -23,7 +23,7 @@ export const createAuthorQuery = async (token, author) => {
 };
 
 export const getAuthorByIdQuery = async (authorId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}/${authorId}`;
   return await fetch(url, {
     mode: "cors",
@@ -36,7 +36,7 @@ export const getAuthorByIdQuery = async (authorId) => {
 };
 
 export const updateAuthorQuery = async (token, author) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}/${author.id}`;
   return await fetch(url, {
     mode: "cors",
@@ -51,7 +51,7 @@ export const updateAuthorQuery = async (token, author) => {
 };
 
 export const deleteAuthorByIdQuery = async (token, authorId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}/${authorId}`;
   return await fetch(url, {
     mode: "cors",
@@ -70,7 +70,7 @@ export const getAllAuthorsQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}/all?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -82,15 +82,8 @@ export const getAllAuthorsQuery = async (
   });
 };
 
-export const getAuthorsAndWriteAmountNewsQuery = async (
-  size,
-  numberPage,
-  sortField,
-  sortType
-) => {};
-
 export const getAuthorByNewsIdQuery = async (newsId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}/news/${newsId}`;
   return await fetch(url, {
     mode: "cors",
@@ -109,7 +102,7 @@ export const getAuthorsByPartOfNameQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_AUTHOR_CONTROLLER}/part-name/${partOfName}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",

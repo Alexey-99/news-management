@@ -29,29 +29,31 @@ import {
 } from "../../../query/News";
 import { Button, Modal } from "react-bootstrap";
 import CreateNewsForm from "./components/content/components/form/CreateNewsForm";
-import {
-  getNewsNumberPageSessionStorageParam,
-  getNewsSearchDescriptionSessionStorageParam,
-  getNewsSearchTypeSessionStorageParam,
-  getNewsSizePageSessionStorageParam,
-  getNewsSortFieldSessionStorageParam,
-  getNewsSortTypeSessionStorageParam,
-  removeNewsSearchDescriptionSessionStorageParam,
-  removeNewsSearchTypeSessionStorageParam,
-  setNewsMaxNumberPageSessionStorageParam,
-  setNewsNumberPageSessionStorageParam,
-  setNewsSearchDescriptionSessionStorageParam,
-  setNewsSearchTypeSessionStorageParam,
-  setNewsSizePageSessionStorageParam,
-  setNewsSortFieldSessionStorageParam,
-  setNewsSortTypeSessionStorageParam,
-} from "../../../params/SessionStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import { LOCALE_EN, LOCALE_RU } from "../../../locate/Locale";
+import { updateAuthorQuery } from "../../../query/Author";
+import {
+  getNewsNumberPageLocaleStorageParam,
+  getNewsSearchDescriptionLocaleStorageParam,
+  getNewsSearchTypeLocaleStorageParam,
+  getNewsSizePageLocaleStorageParam,
+  getNewsSortFieldLocaleStorageParam,
+  getNewsSortTypeLocaleStorageParam,
+  removeNewsSearchDescriptionLocaleStorageParam,
+  removeNewsSearchTypeLocaleStorageParam,
+  setNewsMaxNumberPageLocaleStorageParam,
+  setNewsNumberPageLocaleStorageParam,
+  setNewsSearchDescriptionLocaleStorageParam,
+  setNewsSearchTypeLocaleStorageParam,
+  setNewsSizePageLocaleStorageParam,
+  setNewsSortFieldLocaleStorageParam,
+  setNewsSortTypeLocaleStorageParam,
+} from "../../../params/LocaleStorageParams";
 
 const NewsContentSection = (props) => {
   const userRole = props.valueUserRole;
   const locale = props.valueLocale;
+  const expiredDateJwtToken = props.valueExpiredDateJwtToken;
 
   const DEFAULT_NUMBER_PAGE = 1;
   const DEFAULT_SIZE_PAGE = PAGE_SIZE_VALUES[0];
@@ -76,7 +78,7 @@ const NewsContentSection = (props) => {
     useState(false);
 
   const findNumberPage = () => {
-    const pageSessionStorage = getNewsNumberPageSessionStorageParam();
+    const pageSessionStorage = getNewsNumberPageLocaleStorageParam();
     if (pageSessionStorage !== null) {
       const numberPageMatchArray = pageSessionStorage.match("\\d+");
       if (
@@ -87,19 +89,19 @@ const NewsContentSection = (props) => {
         setNumberPage(pageSessionStorage);
         return pageSessionStorage;
       } else {
-        setNewsNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+        setNewsNumberPageLocaleStorageParam(DEFAULT_NUMBER_PAGE);
         setNumberPage(DEFAULT_NUMBER_PAGE);
         return DEFAULT_NUMBER_PAGE;
       }
     } else {
-      setNewsNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+      setNewsNumberPageLocaleStorageParam(DEFAULT_NUMBER_PAGE);
       setNumberPage(DEFAULT_NUMBER_PAGE);
       return DEFAULT_NUMBER_PAGE;
     }
   };
 
   const findSizePage = () => {
-    const newsSizePageSessionStorage = getNewsSizePageSessionStorageParam();
+    const newsSizePageSessionStorage = getNewsSizePageLocaleStorageParam();
     const isFoundSize =
       PAGE_SIZE_VALUES.filter((value) => value == newsSizePageSessionStorage)
         .length > 0;
@@ -107,7 +109,7 @@ const NewsContentSection = (props) => {
       setSize(newsSizePageSessionStorage);
       return newsSizePageSessionStorage;
     } else {
-      setNewsSizePageSessionStorageParam(DEFAULT_SIZE_PAGE);
+      setNewsSizePageLocaleStorageParam(DEFAULT_SIZE_PAGE);
       setSize(DEFAULT_SIZE_PAGE);
       return DEFAULT_SIZE_PAGE;
     }
@@ -115,7 +117,7 @@ const NewsContentSection = (props) => {
 
   const findSortField = () => {
     let result = DEFAULT_SORT_FIELD;
-    const newsSortFieldSessionStorage = getNewsSortFieldSessionStorageParam();
+    const newsSortFieldSessionStorage = getNewsSortFieldLocaleStorageParam();
     if (
       newsSortFieldSessionStorage != null &&
       newsSortFieldSessionStorage !== ""
@@ -128,18 +130,18 @@ const NewsContentSection = (props) => {
         result = MODIFIED_DATE;
       } else {
         setSortField(DEFAULT_SORT_FIELD);
-        setNewsSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+        setNewsSortFieldLocaleStorageParam(DEFAULT_SORT_FIELD);
       }
     } else {
       setSortField(DEFAULT_SORT_FIELD);
-      setNewsSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+      setNewsSortFieldLocaleStorageParam(DEFAULT_SORT_FIELD);
     }
     return result;
   };
 
   const findSortType = () => {
     let result = DEFAULT_SORT_TYPE;
-    const newsSortTypeSessionStorage = getNewsSortTypeSessionStorageParam();
+    const newsSortTypeSessionStorage = getNewsSortTypeLocaleStorageParam();
     if (
       newsSortTypeSessionStorage != null &&
       newsSortTypeSessionStorage !== ""
@@ -152,18 +154,18 @@ const NewsContentSection = (props) => {
         result = DESC;
       } else {
         setSortType(DEFAULT_SORT_TYPE);
-        setNewsSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+        setNewsSortTypeLocaleStorageParam(DEFAULT_SORT_TYPE);
       }
     } else {
       setSortType(DEFAULT_SORT_TYPE);
-      setNewsSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+      setNewsSortTypeLocaleStorageParam(DEFAULT_SORT_TYPE);
     }
     return result;
   };
 
   const findSearchType = () => {
     let result = "";
-    const searchTypeSessionStorage = getNewsSearchTypeSessionStorageParam();
+    const searchTypeSessionStorage = getNewsSearchTypeLocaleStorageParam();
     if (searchTypeSessionStorage !== null) {
       const foundSearchType = getSearchTypesValues().filter(
         (searchType) => searchTypeSessionStorage === searchType.type
@@ -173,11 +175,11 @@ const NewsContentSection = (props) => {
         setSearchDescriptionPattern(foundSearchType.pattern);
         setSearchType(foundSearchType.type);
       } else {
-        removeNewsSearchTypeSessionStorageParam();
+        removeNewsSearchTypeLocaleStorageParam();
         setSearchType("");
       }
     } else {
-      removeNewsSearchTypeSessionStorageParam();
+      removeNewsSearchTypeLocaleStorageParam();
       setSearchType("");
     }
     return result;
@@ -186,7 +188,7 @@ const NewsContentSection = (props) => {
   const findSearchDescription = (searchType) => {
     let result = "";
     const searchDescriptionSessionStorage =
-      getNewsSearchDescriptionSessionStorageParam();
+      getNewsSearchDescriptionLocaleStorageParam();
     if (searchDescriptionSessionStorage !== null) {
       const searchTypeFound = getSearchTypesValues().filter(
         (searchTypeItem) => searchType === searchTypeItem.type
@@ -203,24 +205,58 @@ const NewsContentSection = (props) => {
           result = searchDescriptionSessionStorage;
           setSearchDescription(searchDescriptionSessionStorage);
         } else {
-          removeNewsSearchDescriptionSessionStorageParam();
-          removeNewsSearchTypeSessionStorageParam();
+          removeNewsSearchDescriptionLocaleStorageParam();
+          removeNewsSearchTypeLocaleStorageParam();
           setSearchDescription("");
           setSearchType("");
         }
       } else {
-        removeNewsSearchDescriptionSessionStorageParam();
-        removeNewsSearchTypeSessionStorageParam();
+        removeNewsSearchDescriptionLocaleStorageParam();
+        removeNewsSearchTypeLocaleStorageParam();
         setSearchDescription("");
         setSearchType("");
       }
     } else {
-      removeNewsSearchDescriptionSessionStorageParam();
-      removeNewsSearchTypeSessionStorageParam();
+      removeNewsSearchDescriptionLocaleStorageParam();
+      removeNewsSearchTypeLocaleStorageParam();
       setSearchDescription("");
       setSearchType("");
     }
     return result;
+  };
+
+  const updateJwtToken = (token) => {
+    updateAuthorQuery(token)
+      .then(async (response) => {
+        if (response.ok) {
+        } else if (response.status === 200) {
+          const responseJson = await response.json();
+          setNewsList(Array.of(responseJson));
+          setNewsSizePageLocaleStorageParam(size);
+          setNumberPage(1);
+          setNewsNumberPageLocaleStorageParam(1);
+          setMaxNumberPage(1);
+          setNewsMaxNumberPageLocaleStorageParam(1);
+          setCountAllEntity(1);
+          setResponceException("");
+          setNewsSearchDescriptionLocaleStorageParam(searchDescription);
+          setSearchDescription(searchDescription);
+          setNewsSearchTypeLocaleStorageParam(searchType);
+          setSearchType(searchType);
+        } else if (response.status === 401) {
+          setResponceException("Вы не авторизованы");
+        } else if (response.status === 400) {
+          const responseJson = await response.json();
+          setResponceException(responseJson.errorMessage);
+        } else if (response.status === 403) {
+          setResponceException("У вас не достаточно прав на данную оперцию.");
+        } else {
+          setResponceException("Что-то пошло не так");
+        }
+      })
+      .catch(() => {
+        setResponceException("Что-то пошло не так");
+      });
   };
 
   const getPaginationNewsByParams = async (
@@ -231,36 +267,40 @@ const NewsContentSection = (props) => {
     sortField,
     sortType
   ) => {
+    console.log(expiredDateJwtToken);
+    console.log(expiredDateJwtToken - new Date());
+    console.log(expiredDateJwtToken - new Date() - 10000);
+
     switch (searchType) {
       case SEARCH_TYPE_ID.type:
         getNewsByIdQuary(searchDescription)
           .then(async (data) => {
             if (data.status === 204) {
               setNewsList([]);
-              setNewsSizePageSessionStorageParam(size);
+              setNewsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setNewsNumberPageSessionStorageParam(1);
+              setNewsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setNewsMaxNumberPageSessionStorageParam(1);
+              setNewsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeNewsSearchDescriptionSessionStorageParam();
-              removeNewsSearchTypeSessionStorageParam();
+              removeNewsSearchDescriptionLocaleStorageParam();
+              removeNewsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setNewsList(Array.of(response));
-              setNewsSizePageSessionStorageParam(size);
+              setNewsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setNewsNumberPageSessionStorageParam(1);
+              setNewsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setNewsMaxNumberPageSessionStorageParam(1);
+              setNewsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(1);
               setResponceException("");
-              setNewsSearchDescriptionSessionStorageParam(searchDescription);
+              setNewsSearchDescriptionLocaleStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setNewsSearchTypeSessionStorageParam(searchType);
+              setNewsSearchTypeLocaleStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -290,31 +330,31 @@ const NewsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setNewsList([]);
-              setNewsSizePageSessionStorageParam(size);
+              setNewsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setNewsNumberPageSessionStorageParam(1);
+              setNewsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setNewsMaxNumberPageSessionStorageParam(1);
+              setNewsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeNewsSearchDescriptionSessionStorageParam();
-              removeNewsSearchTypeSessionStorageParam();
+              removeNewsSearchDescriptionLocaleStorageParam();
+              removeNewsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setNewsList(response.entity);
               setSize(response.size);
-              setNewsSizePageSessionStorageParam(response.size);
+              setNewsSizePageLocaleStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setNewsNumberPageSessionStorageParam(response.numberPage);
+              setNewsNumberPageLocaleStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+              setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              setNewsSearchDescriptionSessionStorageParam(searchDescription);
+              setNewsSearchDescriptionLocaleStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setNewsSearchTypeSessionStorageParam(searchType);
+              setNewsSearchTypeLocaleStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -343,31 +383,31 @@ const NewsContentSection = (props) => {
         ).then(async (data) => {
           if (data.status === 204) {
             setNewsList([]);
-            setNewsSizePageSessionStorageParam(size);
+            setNewsSizePageLocaleStorageParam(size);
             setNumberPage(1);
-            setNewsNumberPageSessionStorageParam(1);
+            setNewsNumberPageLocaleStorageParam(1);
             setMaxNumberPage(1);
-            setNewsMaxNumberPageSessionStorageParam(1);
+            setNewsMaxNumberPageLocaleStorageParam(1);
             setCountAllEntity(0);
             setResponceException("");
-            removeNewsSearchDescriptionSessionStorageParam();
-            removeNewsSearchTypeSessionStorageParam();
+            removeNewsSearchDescriptionLocaleStorageParam();
+            removeNewsSearchTypeLocaleStorageParam();
             setSearchDescription("");
             setSearchType("");
           } else if (data.status === 200) {
             const response = await data.json();
             setNewsList(response.entity);
             setSize(response.size);
-            setNewsSizePageSessionStorageParam(response.size);
+            setNewsSizePageLocaleStorageParam(response.size);
             setNumberPage(response.numberPage);
-            setNewsNumberPageSessionStorageParam(response.numberPage);
+            setNewsNumberPageLocaleStorageParam(response.numberPage);
             setMaxNumberPage(response.maxNumberPage);
-            setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+            setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
             setCountAllEntity(response.countAllEntity);
             setResponceException("");
-            setNewsSearchDescriptionSessionStorageParam(searchDescription);
+            setNewsSearchDescriptionLocaleStorageParam(searchDescription);
             setSearchDescription(searchDescription);
-            setNewsSearchTypeSessionStorageParam(searchType);
+            setNewsSearchTypeLocaleStorageParam(searchType);
             setSearchType(searchType);
           } else if (data.status === 401) {
             setResponceException("Вы не авторизованы");
@@ -391,31 +431,31 @@ const NewsContentSection = (props) => {
         ).then(async (data) => {
           if (data.status === 204) {
             setNewsList([]);
-            setNewsSizePageSessionStorageParam(size);
+            setNewsSizePageLocaleStorageParam(size);
             setNumberPage(1);
-            setNewsNumberPageSessionStorageParam(1);
+            setNewsNumberPageLocaleStorageParam(1);
             setMaxNumberPage(1);
-            setNewsMaxNumberPageSessionStorageParam(1);
+            setNewsMaxNumberPageLocaleStorageParam(1);
             setCountAllEntity(0);
             setResponceException("");
-            removeNewsSearchDescriptionSessionStorageParam();
-            removeNewsSearchTypeSessionStorageParam();
+            removeNewsSearchDescriptionLocaleStorageParam();
+            removeNewsSearchTypeLocaleStorageParam();
             setSearchDescription("");
             setSearchType("");
           } else if (data.status === 200) {
             const response = await data.json();
             setNewsList(response.entity);
             setSize(response.size);
-            setNewsSizePageSessionStorageParam(response.size);
+            setNewsSizePageLocaleStorageParam(response.size);
             setNumberPage(response.numberPage);
-            setNewsNumberPageSessionStorageParam(response.numberPage);
+            setNewsNumberPageLocaleStorageParam(response.numberPage);
             setMaxNumberPage(response.maxNumberPage);
-            setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+            setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
             setCountAllEntity(response.countAllEntity);
             setResponceException("");
-            setNewsSearchDescriptionSessionStorageParam(searchDescription);
+            setNewsSearchDescriptionLocaleStorageParam(searchDescription);
             setSearchDescription(searchDescription);
-            setNewsSearchTypeSessionStorageParam(searchType);
+            setNewsSearchTypeLocaleStorageParam(searchType);
             setSearchType(searchType);
           } else if (data.status === 401) {
             setResponceException("Вы не авторизованы");
@@ -439,31 +479,31 @@ const NewsContentSection = (props) => {
         ).then(async (data) => {
           if (data.status === 204) {
             setNewsList([]);
-            setNewsSizePageSessionStorageParam(size);
+            setNewsSizePageLocaleStorageParam(size);
             setNumberPage(1);
-            setNewsNumberPageSessionStorageParam(1);
+            setNewsNumberPageLocaleStorageParam(1);
             setMaxNumberPage(1);
-            setNewsMaxNumberPageSessionStorageParam(1);
+            setNewsMaxNumberPageLocaleStorageParam(1);
             setCountAllEntity(0);
             setResponceException("");
-            removeNewsSearchDescriptionSessionStorageParam();
-            removeNewsSearchTypeSessionStorageParam();
+            removeNewsSearchDescriptionLocaleStorageParam();
+            removeNewsSearchTypeLocaleStorageParam();
             setSearchDescription("");
             setSearchType("");
           } else if (data.status === 200) {
             const response = await data.json();
             setNewsList(response.entity);
             setSize(response.size);
-            setNewsSizePageSessionStorageParam(response.size);
+            setNewsSizePageLocaleStorageParam(response.size);
             setNumberPage(response.numberPage);
-            setNewsNumberPageSessionStorageParam(response.numberPage);
+            setNewsNumberPageLocaleStorageParam(response.numberPage);
             setMaxNumberPage(response.maxNumberPage);
-            setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+            setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
             setCountAllEntity(response.countAllEntity);
             setResponceException("");
-            setNewsSearchDescriptionSessionStorageParam(searchDescription);
+            setNewsSearchDescriptionLocaleStorageParam(searchDescription);
             setSearchDescription(searchDescription);
-            setNewsSearchTypeSessionStorageParam(searchType);
+            setNewsSearchTypeLocaleStorageParam(searchType);
             setSearchType(searchType);
           } else if (data.status === 401) {
             setResponceException("Вы не авторизованы");
@@ -487,31 +527,31 @@ const NewsContentSection = (props) => {
         ).then(async (data) => {
           if (data.status === 204) {
             setNewsList([]);
-            setNewsSizePageSessionStorageParam(size);
+            setNewsSizePageLocaleStorageParam(size);
             setNumberPage(1);
-            setNewsNumberPageSessionStorageParam(1);
+            setNewsNumberPageLocaleStorageParam(1);
             setMaxNumberPage(1);
-            setNewsMaxNumberPageSessionStorageParam(1);
+            setNewsMaxNumberPageLocaleStorageParam(1);
             setCountAllEntity(0);
             setResponceException("");
-            removeNewsSearchDescriptionSessionStorageParam();
-            removeNewsSearchTypeSessionStorageParam();
+            removeNewsSearchDescriptionLocaleStorageParam();
+            removeNewsSearchTypeLocaleStorageParam();
             setSearchDescription("");
             setSearchType("");
           } else if (data.status === 200) {
             const response = await data.json();
             setNewsList(response.entity);
             setSize(response.size);
-            setNewsSizePageSessionStorageParam(response.size);
+            setNewsSizePageLocaleStorageParam(response.size);
             setNumberPage(response.numberPage);
-            setNewsNumberPageSessionStorageParam(response.numberPage);
+            setNewsNumberPageLocaleStorageParam(response.numberPage);
             setMaxNumberPage(response.maxNumberPage);
-            setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+            setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
             setCountAllEntity(response.countAllEntity);
             setResponceException("");
-            setNewsSearchDescriptionSessionStorageParam(searchDescription);
+            setNewsSearchDescriptionLocaleStorageParam(searchDescription);
             setSearchDescription(searchDescription);
-            setNewsSearchTypeSessionStorageParam(searchType);
+            setNewsSearchTypeLocaleStorageParam(searchType);
             setSearchType(searchType);
           } else if (data.status === 401) {
             setResponceException("Вы не авторизованы");
@@ -535,31 +575,31 @@ const NewsContentSection = (props) => {
         ).then(async (data) => {
           if (data.status === 204) {
             setNewsList([]);
-            setNewsSizePageSessionStorageParam(size);
+            setNewsSizePageLocaleStorageParam(size);
             setNumberPage(1);
-            setNewsNumberPageSessionStorageParam(1);
+            setNewsNumberPageLocaleStorageParam(1);
             setMaxNumberPage(1);
-            setNewsMaxNumberPageSessionStorageParam(1);
+            setNewsMaxNumberPageLocaleStorageParam(1);
             setCountAllEntity(0);
             setResponceException("");
-            removeNewsSearchDescriptionSessionStorageParam();
-            removeNewsSearchTypeSessionStorageParam();
+            removeNewsSearchDescriptionLocaleStorageParam();
+            removeNewsSearchTypeLocaleStorageParam();
             setSearchDescription("");
             setSearchType("");
           } else if (data.status === 200) {
             const response = await data.json();
             setNewsList(response.entity);
             setSize(response.size);
-            setNewsSizePageSessionStorageParam(response.size);
+            setNewsSizePageLocaleStorageParam(response.size);
             setNumberPage(response.numberPage);
-            setNewsNumberPageSessionStorageParam(response.numberPage);
+            setNewsNumberPageLocaleStorageParam(response.numberPage);
             setMaxNumberPage(response.maxNumberPage);
-            setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+            setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
             setCountAllEntity(response.countAllEntity);
             setResponceException("");
-            setNewsSearchDescriptionSessionStorageParam(searchDescription);
+            setNewsSearchDescriptionLocaleStorageParam(searchDescription);
             setSearchDescription(searchDescription);
-            setNewsSearchTypeSessionStorageParam(searchType);
+            setNewsSearchTypeLocaleStorageParam(searchType);
             setSearchType(searchType);
           } else if (data.status === 401) {
             setResponceException("Вы не авторизованы");
@@ -578,30 +618,30 @@ const NewsContentSection = (props) => {
           async (data) => {
             if (data.status === 204) {
               setNewsList([]);
-              setNewsSizePageSessionStorageParam(size);
+              setNewsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setNewsNumberPageSessionStorageParam(1);
+              setNewsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setNewsMaxNumberPageSessionStorageParam(1);
+              setNewsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeNewsSearchDescriptionSessionStorageParam();
-              removeNewsSearchTypeSessionStorageParam();
+              removeNewsSearchDescriptionLocaleStorageParam();
+              removeNewsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setNewsList(response.entity);
               setSize(response.size);
-              setNewsSizePageSessionStorageParam(response.size);
+              setNewsSizePageLocaleStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setNewsNumberPageSessionStorageParam(response.numberPage);
+              setNewsNumberPageLocaleStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setNewsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+              setNewsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              removeNewsSearchDescriptionSessionStorageParam();
-              removeNewsSearchTypeSessionStorageParam();
+              removeNewsSearchDescriptionLocaleStorageParam();
+              removeNewsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 401) {
@@ -735,8 +775,8 @@ const NewsContentSection = (props) => {
                 const numberPage = 1;
                 setSearchType(searchType);
                 setSearchDescription(searchDescription);
-                removeNewsSearchTypeSessionStorageParam();
-                removeNewsSearchDescriptionSessionStorageParam();
+                removeNewsSearchTypeLocaleStorageParam();
+                removeNewsSearchDescriptionLocaleStorageParam();
                 getPaginationNewsByParams(
                   searchDescription,
                   searchType,
@@ -801,7 +841,7 @@ const NewsContentSection = (props) => {
               valueSortType={sortType}
               onChangeSortType={(sortType) => {
                 setSortType(sortType);
-                setNewsSortTypeSessionStorageParam(sortType);
+                setNewsSortTypeLocaleStorageParam(sortType);
                 getPaginationNewsByParams(
                   searchDescription,
                   searchType,
@@ -818,7 +858,7 @@ const NewsContentSection = (props) => {
               valueSortField={sortField}
               onChangeSortField={(sortField) => {
                 setSortField(sortField);
-                setNewsSortFieldSessionStorageParam(sortField);
+                setNewsSortFieldLocaleStorageParam(sortField);
                 getPaginationNewsByParams(
                   searchDescription,
                   searchType,

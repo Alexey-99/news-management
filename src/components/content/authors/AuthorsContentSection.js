@@ -15,7 +15,7 @@ import {
   setAuthorsSizePageSessionStorageParam,
   setAuthorsSortFieldSessionStorageParam,
   setAuthorsSortTypeSessionStorageParam,
-} from "../../../params/SessionStorageParams";
+} from "../../../params/LocaleStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import {
   getAllAuthorsQuery,

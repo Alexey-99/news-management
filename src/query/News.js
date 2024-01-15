@@ -1,4 +1,4 @@
-import { getLocaleSessionStorageParam } from "../params/SessionStorageParams";
+import { getLocaleLocaleStorageParam } from "../params/LocaleStorageParams";
 
 const PREFIX_BEARER = "Bearer ";
 const URL_NEWS_CONTROLLER = "http://localhost:8081/api/v2/news";
@@ -13,7 +13,7 @@ export const getAllNewsQuery = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/all?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -26,7 +26,7 @@ export const getAllNewsQuery = async (
 };
 
 export const getNewsByIdQuary = async (newsId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/${newsId}`;
   return await fetch(url, {
     mode: "cors",
@@ -45,7 +45,7 @@ export const getNewsByTagNameQuary = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/tag-name/${tagName}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -64,7 +64,7 @@ export const getNewsByTagIdQuary = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/tag/${tagId}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -83,7 +83,7 @@ export const getNewsByPartOfAuthorNameQuary = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/author/part-name/${partOfAuthorName}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -102,7 +102,7 @@ export const getNewsByAuthorIdQuary = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/author/${authorId}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -121,7 +121,7 @@ export const getNewsByPartOfTitleQuary = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/part-title/${partOfTitle}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -140,7 +140,7 @@ export const getNewsByPartOfContentQuary = async (
   sortField,
   sortType
 ) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/part-content/${partOfContent}?${PARAM_NAME_SIZE}=${size}&${PARAM_NAME_PAGE}=${numberPage}&${PARAM_NAME_SORT_FIELD}=${sortField}&${PARAM_NAME_SORT_TYPE}=${sortType}`;
   return await fetch(url, {
     mode: "cors",
@@ -153,7 +153,7 @@ export const getNewsByPartOfContentQuary = async (
 };
 
 export const removeAllTagsFromNewsByNewsIdQuery = async (token, newsId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/all-tags/${newsId}`;
   return await fetch(url, {
     mode: "cors",
@@ -167,7 +167,7 @@ export const removeAllTagsFromNewsByNewsIdQuery = async (token, newsId) => {
 };
 
 export const deleteNewsByIdQuery = async (token, newsId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/${newsId}`;
   return await fetch(url, {
     mode: "cors",
@@ -181,7 +181,7 @@ export const deleteNewsByIdQuery = async (token, newsId) => {
 };
 
 export const deleteNewsByAuthorIdQuery = async (token, authorId) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/author/${authorId}`;
   return await fetch(url, {
     mode: "cors",
@@ -195,7 +195,7 @@ export const deleteNewsByAuthorIdQuery = async (token, authorId) => {
 };
 
 export const updateNewsQuery = async (token, news) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}/${news.id}`;
   return await fetch(url, {
     mode: "cors",
@@ -210,7 +210,7 @@ export const updateNewsQuery = async (token, news) => {
 };
 
 export const createNewsQuery = async (token, news) => {
-  const language = getLocaleSessionStorageParam();
+  const language = getLocaleLocaleStorageParam();
   const url = `${URL_NEWS_CONTROLLER}`;
   return await fetch(url, {
     mode: "cors",

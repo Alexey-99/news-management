@@ -1,16 +1,16 @@
 import { useState } from "react";
 import {
-  getJwtTokenSessionStorageParam,
+  getJwtTokenLocaleStorageParam,
   getUsersNumberPageSessionStorageParam,
   getUsersSearchDescriptionSessionStorageParam,
   getUsersSearchTypeSessionStorageParam,
   getUsersSizePageSessionStorageParam,
   getUsersSortFieldSessionStorageParam,
   getUsersSortTypeSessionStorageParam,
-  removeJwtTokenSessionStorageParam,
+  removeJwtTokenLocaleStorageParam,
   removeUsersSearchDescriptionSessionStorageParam,
   removeUsersSearchTypeSessionStorageParam,
-  setUserRoleSessionStorageParam,
+  setUserRoleLocaleStorageParam,
   setUsersMaxNumberPageSessionStorageParam,
   setUsersNumberPageSessionStorageParam,
   setUsersSearchDescriptionSessionStorageParam,
@@ -18,7 +18,7 @@ import {
   setUsersSizePageSessionStorageParam,
   setUsersSortFieldSessionStorageParam,
   setUsersSortTypeSessionStorageParam,
-} from "../../../params/SessionStorageParams";
+} from "../../../params/LocaleStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import {
   SEARCH_TYPE_ID,
@@ -222,7 +222,7 @@ const UsersContentSection = (props) => {
     sortField,
     sortType
   ) => {
-    const token = getJwtTokenSessionStorageParam();
+    const token = getJwtTokenLocaleStorageParam();
     validationJwtTokenAdmin(token)
       .then(async (responce) => {
         if (responce.ok) {
@@ -263,8 +263,8 @@ const UsersContentSection = (props) => {
                     const responseJson = await responce.json();
                     setResponceException(responseJson.errorMessage);
                     props.onChangeUserRole(ROLE_GUEST);
-                    setUserRoleSessionStorageParam(ROLE_GUEST);
-                    removeJwtTokenSessionStorageParam();
+                    setUserRoleLocaleStorageParam(ROLE_GUEST);
+                    removeJwtTokenLocaleStorageParam();
                   } else if (data.status === 400) {
                     const response = await data.json();
                     setResponceException(response.errorMessage);
@@ -318,8 +318,8 @@ const UsersContentSection = (props) => {
                     const responseJson = await responce.json();
                     setResponceException(responseJson.errorMessage);
                     props.onChangeUserRole(ROLE_GUEST);
-                    setUserRoleSessionStorageParam(ROLE_GUEST);
-                    removeJwtTokenSessionStorageParam();
+                    setUserRoleLocaleStorageParam(ROLE_GUEST);
+                    removeJwtTokenLocaleStorageParam();
                   } else if (data.status === 400) {
                     const response = await data.json();
                     setResponceException(response.errorMessage);
@@ -383,8 +383,8 @@ const UsersContentSection = (props) => {
                     const responseJson = await responce.json();
                     setResponceException(responseJson.errorMessage);
                     props.onChangeUserRole(ROLE_GUEST);
-                    setUserRoleSessionStorageParam(ROLE_GUEST);
-                    removeJwtTokenSessionStorageParam();
+                    setUserRoleLocaleStorageParam(ROLE_GUEST);
+                    removeJwtTokenLocaleStorageParam();
                   } else if (data.status === 400) {
                     const response = await data.json();
                     setResponceException(response.errorMessage);
@@ -439,8 +439,8 @@ const UsersContentSection = (props) => {
                     const responseJson = await responce.json();
                     setResponceException(responseJson.errorMessage);
                     props.onChangeUserRole(ROLE_GUEST);
-                    setUserRoleSessionStorageParam(ROLE_GUEST);
-                    removeJwtTokenSessionStorageParam();
+                    setUserRoleLocaleStorageParam(ROLE_GUEST);
+                    removeJwtTokenLocaleStorageParam();
                   } else if (data.status === 400) {
                     const response = await data.json();
                     setResponceException(response.errorMessage);
@@ -463,8 +463,8 @@ const UsersContentSection = (props) => {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
           props.onChangeUserRole(ROLE_GUEST);
-          setUserRoleSessionStorageParam(ROLE_GUEST);
-          removeJwtTokenSessionStorageParam();
+          setUserRoleLocaleStorageParam(ROLE_GUEST);
+          removeJwtTokenLocaleStorageParam();
         } else if (responce.status === 403) {
           const responseJson = await responce.json();
           setResponceException(responseJson.errorMessage);
