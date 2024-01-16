@@ -245,7 +245,172 @@ const AuthorPagination = (props) => {
             </button>
           </li>
         );
-    } else if (numberPage > 2 && numberPage < maxNumberPage - 2) {
+    } else if (numberPage === 3 && numberPage + 1 === maxNumberPage) {
+      const arrPages = [1, numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = arrPages.map((page) => {
+        if (page === numberPage) {
+          return (
+            <li
+              key={page}
+              className="page-item  me-3 ms-3  active"
+              style={{
+                width: "50px",
+              }}
+            >
+              <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                {page}
+              </button>
+            </li>
+          );
+        } else {
+          return (
+            <li
+              key={page}
+              className="page-item  me-3 ms-3"
+              style={{
+                width: "50px",
+              }}
+            >
+              <button
+                className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                onClick={() => {
+                  props.onChoosedNumberPage(page);
+                }}
+              >
+                {page}
+              </button>
+            </li>
+          );
+        }
+      });
+    } else if (numberPage === 3 && numberPage + 1 === maxNumberPage - 1) {
+      const arrPages = [1, numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = arrPages
+        .map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage === 3 && numberPage + 1 !== maxNumberPage - 1) {
+      const arrPages = [1, numberPage - 1, numberPage, numberPage + 1];
+      ulPagesEl = arrPages
+        .map((page) => {
+          if (page === numberPage) {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3  active"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+                  {page}
+                </button>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={page}
+                className="page-item  me-3 ms-3"
+                style={{
+                  width: "50px",
+                }}
+              >
+                <button
+                  className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+                  onClick={() => {
+                    props.onChoosedNumberPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              </li>
+            );
+          }
+        })
+        .concat(
+          <li
+            key={numberPage + 2}
+            className="page-item  me-3 ms-3 disabled"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button className="page-link h-100 w-100  d-flex justify-content-center align-items-center">
+              ...
+            </button>
+          </li>
+        )
+        .concat(
+          <li
+            key={maxNumberPage}
+            className="page-item  me-3 ms-3"
+            style={{
+              width: "50px",
+            }}
+          >
+            <button
+              className="page-link h-100 w-100  d-flex justify-content-center align-items-center"
+              onClick={() => {
+                props.onChoosedNumberPage(maxNumberPage);
+              }}
+            >
+              {maxNumberPage}
+            </button>
+          </li>
+        );
+    } else if (numberPage > 3 && numberPage < maxNumberPage - 2) {
       const arrPages = [numberPage - 1, numberPage, numberPage + 1];
       ulPagesEl = Array.of(
         <li
@@ -329,7 +494,7 @@ const AuthorPagination = (props) => {
             </button>
           </li>
         );
-    } else if (numberPage > 2 && numberPage + 1 === maxNumberPage - 1) {
+    } else if (numberPage > 3 && numberPage + 1 === maxNumberPage - 1) {
       const arrPages = [numberPage - 1, numberPage, numberPage + 1];
       ulPagesEl = Array.of(
         <li

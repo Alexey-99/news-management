@@ -464,8 +464,8 @@ const TagItem = (props) => {
 
   return (
     <tr>
-      <td>{tag.id}</td>
-      <td>
+      <td className="text-center">{tag.id}</td>
+      <td className="text-center">
         <p className="text-uppercase">{tag.name}</p>
       </td>
       <td className="text-center">{tag.countNews}</td>

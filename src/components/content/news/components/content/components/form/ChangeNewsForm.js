@@ -3,7 +3,11 @@ import { validationJwtTokenAdmin } from "../../../../../../../query/Auth";
 import { updateNewsQuery } from "../../../../../../../query/News";
 import { ROLE_GUEST } from "../../../../../../../role/UserRole";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../../locate/Locale";
-import { getJwtTokenLocaleStorageParam, removeJwtTokenLocaleStorageParam, setUserRoleLocaleStorageParam } from "../../../../../../../params/LocaleStorageParams";
+import {
+  getJwtTokenLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "../../../../../../../params/LocaleStorageParams";
 
 const ChangeNewsForm = (props) => {
   const userRole = props.valueUserRole;
@@ -84,7 +88,7 @@ const ChangeNewsForm = (props) => {
         }
       });
   };
-
+ 
   return (
     <div
       style={{
@@ -148,20 +152,6 @@ const ChangeNewsForm = (props) => {
                   (locale === LOCALE_EN && `Enter news content`)}
               </label>
             </div>
-            <span>
-              {(locale === LOCALE_RU && `Контент новости`) ||
-                (locale === LOCALE_EN && `News content`)}
-              :
-            </span>
-            <p
-              style={{
-                wordBreak: "break-all",
-                background: "white",
-                padding: "0 10px",
-              }}
-            >
-              {contentNews}
-            </p>
           </div>
         </div>
         <div>

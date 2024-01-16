@@ -1,20 +1,20 @@
 import { useState } from "react";
 import {
-  getAuthorsNumberPageSessionStorageParam,
-  getAuthorsSearchDescriptionSessionStorageParam,
-  getAuthorsSearchTypeSessionStorageParam,
-  getAuthorsSizePageSessionStorageParam,
-  getAuthorsSortFieldSessionStorageParam,
-  getAuthorsSortTypeSessionStorageParam,
-  removeAuthorsSearchDescriptionSessionStorageParam,
-  removeAuthorsSearchTypeSessionStorageParam,
-  setAuthorsMaxNumberPageSessionStorageParam,
-  setAuthorsNumberPageSessionStorageParam,
-  setAuthorsSearchDescriptionSessionStorageParam,
-  setAuthorsSearchTypeSessionStorageParam,
-  setAuthorsSizePageSessionStorageParam,
-  setAuthorsSortFieldSessionStorageParam,
-  setAuthorsSortTypeSessionStorageParam,
+  getAuthorsNumberPageLocalStorageParam,
+  getAuthorsSearchDescriptionLocalStorageParam,
+  getAuthorsSearchTypeLocalStorageParam,
+  getAuthorsSizePageLocalStorageParam,
+  getAuthorsSortFieldLocalStorageParam,
+  getAuthorsSortTypeLocalStorageParam,
+  removeAuthorsSearchDescriptionLocalStorageParam,
+  removeAuthorsSearchTypeLocalStorageParam,
+  setAuthorsMaxNumberPageLocalStorageParam,
+  setAuthorsNumberPageLocalStorageParam,
+  setAuthorsSearchDescriptionLocalStorageParam,
+  setAuthorsSearchTypeLocalStorageParam,
+  setAuthorsSizePageLocalStorageParam,
+  setAuthorsSortFieldLocalStorageParam,
+  setAuthorsSortTypeLocalStorageParam,
 } from "../../../params/LocaleStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import {
@@ -70,38 +70,38 @@ const AuthorsContentSection = (props) => {
     useState(false);
 
   const findNumberPage = () => {
-    const pageSessionStorage = getAuthorsNumberPageSessionStorageParam();
-    if (pageSessionStorage !== null) {
-      const numberPageMatchArray = pageSessionStorage.match("\\d+");
+    const pageLocalStorage = getAuthorsNumberPageLocalStorageParam();
+    if (pageLocalStorage !== null) {
+      const numberPageMatchArray = pageLocalStorage.match("\\d+");
       if (
         numberPageMatchArray !== null &&
         numberPageMatchArray[0] !== null &&
-        numberPageMatchArray[0] === pageSessionStorage
+        numberPageMatchArray[0] === pageLocalStorage
       ) {
-        setNumberPage(pageSessionStorage);
-        return pageSessionStorage;
+        setNumberPage(pageLocalStorage);
+        return pageLocalStorage;
       } else {
-        setAuthorsNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+        setAuthorsNumberPageLocalStorageParam(DEFAULT_NUMBER_PAGE);
         setNumberPage(DEFAULT_NUMBER_PAGE);
         return DEFAULT_NUMBER_PAGE;
       }
     } else {
-      setAuthorsNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+      setAuthorsNumberPageLocalStorageParam(DEFAULT_NUMBER_PAGE);
       setNumberPage(DEFAULT_NUMBER_PAGE);
       return DEFAULT_NUMBER_PAGE;
     }
   };
 
   const findSizePage = () => {
-    const sizePageSessionStorage = getAuthorsSizePageSessionStorageParam();
+    const sizePageLocalStorage = getAuthorsSizePageLocalStorageParam();
     const isFoundSize =
-      PAGE_SIZE_VALUES.filter((value) => value == sizePageSessionStorage)
-        .length > 0;
+      PAGE_SIZE_VALUES.filter((value) => value == sizePageLocalStorage).length >
+      0;
     if (isFoundSize) {
-      setSize(sizePageSessionStorage);
-      return sizePageSessionStorage;
+      setSize(sizePageLocalStorage);
+      return sizePageLocalStorage;
     } else {
-      setAuthorsSizePageSessionStorageParam(DEFAULT_SIZE_PAGE);
+      setAuthorsSizePageLocalStorageParam(DEFAULT_SIZE_PAGE);
       setSize(DEFAULT_SIZE_PAGE);
       return DEFAULT_SIZE_PAGE;
     }
@@ -109,7 +109,7 @@ const AuthorsContentSection = (props) => {
 
   const findSortField = () => {
     let result = DEFAULT_SORT_FIELD;
-    const sortFieldSessionStorage = getAuthorsSortFieldSessionStorageParam();
+    const sortFieldSessionStorage = getAuthorsSortFieldLocalStorageParam();
     if (sortFieldSessionStorage != null && sortFieldSessionStorage !== "") {
       if (AUTHOR_NAME === sortFieldSessionStorage) {
         setSortField(AUTHOR_NAME);
@@ -122,18 +122,18 @@ const AuthorsContentSection = (props) => {
         result = AUTHOR_COUNT_NEWS;
       } else {
         setSortField(DEFAULT_SORT_FIELD);
-        setAuthorsSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+        setAuthorsSortFieldLocalStorageParam(DEFAULT_SORT_FIELD);
       }
     } else {
       setSortField(DEFAULT_SORT_FIELD);
-      setAuthorsSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+      setAuthorsSortFieldLocalStorageParam(DEFAULT_SORT_FIELD);
     }
     return result;
   };
 
   const findSortType = () => {
     let result = DEFAULT_SORT_TYPE;
-    const sortTypeSessionStorage = getAuthorsSortTypeSessionStorageParam();
+    const sortTypeSessionStorage = getAuthorsSortTypeLocalStorageParam();
     if (sortTypeSessionStorage != null && sortTypeSessionStorage !== "") {
       if (ASC === sortTypeSessionStorage) {
         setSortType(ASC);
@@ -143,18 +143,18 @@ const AuthorsContentSection = (props) => {
         result = DESC;
       } else {
         setSortType(DEFAULT_SORT_TYPE);
-        setAuthorsSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+        setAuthorsSortTypeLocalStorageParam(DEFAULT_SORT_TYPE);
       }
     } else {
       setSortType(DEFAULT_SORT_TYPE);
-      setAuthorsSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+      setAuthorsSortTypeLocalStorageParam(DEFAULT_SORT_TYPE);
     }
     return result;
   };
 
   const findSearchType = () => {
     let result = "";
-    const searchTypeSessionStorage = getAuthorsSearchTypeSessionStorageParam();
+    const searchTypeSessionStorage = getAuthorsSearchTypeLocalStorageParam();
     if (searchTypeSessionStorage !== null) {
       const foundSearchType = getSearchTypesValues().filter(
         (searchType) => searchTypeSessionStorage === searchType.type
@@ -164,11 +164,11 @@ const AuthorsContentSection = (props) => {
         setSearchDescriptionPattern(foundSearchType.pattern);
         setSearchType(foundSearchType.type);
       } else {
-        removeAuthorsSearchTypeSessionStorageParam();
+        removeAuthorsSearchTypeLocalStorageParam();
         setSearchType("");
       }
     } else {
-      removeAuthorsSearchTypeSessionStorageParam();
+      removeAuthorsSearchTypeLocalStorageParam();
       setSearchType("");
     }
     return result;
@@ -177,7 +177,7 @@ const AuthorsContentSection = (props) => {
   const findSearchDescription = (searchType) => {
     let result = "";
     const searchDescriptionSessionStorage =
-      getAuthorsSearchDescriptionSessionStorageParam();
+      getAuthorsSearchDescriptionLocalStorageParam();
     if (searchDescriptionSessionStorage !== null) {
       const searchTypeFound = getSearchTypesValues().filter(
         (searchTypeItem) => searchType === searchTypeItem.type
@@ -194,20 +194,20 @@ const AuthorsContentSection = (props) => {
           result = searchDescriptionSessionStorage;
           setSearchDescription(searchDescriptionSessionStorage);
         } else {
-          removeAuthorsSearchDescriptionSessionStorageParam();
-          removeAuthorsSearchTypeSessionStorageParam();
+          removeAuthorsSearchDescriptionLocalStorageParam();
+          removeAuthorsSearchTypeLocalStorageParam();
           setSearchDescription("");
           setSearchType("");
         }
       } else {
-        removeAuthorsSearchDescriptionSessionStorageParam();
-        removeAuthorsSearchTypeSessionStorageParam();
+        removeAuthorsSearchDescriptionLocalStorageParam();
+        removeAuthorsSearchTypeLocalStorageParam();
         setSearchDescription("");
         setSearchType("");
       }
     } else {
-      removeAuthorsSearchDescriptionSessionStorageParam();
-      removeAuthorsSearchTypeSessionStorageParam();
+      removeAuthorsSearchDescriptionLocalStorageParam();
+      removeAuthorsSearchTypeLocalStorageParam();
       setSearchDescription("");
       setSearchType("");
     }
@@ -228,30 +228,30 @@ const AuthorsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setAuthorsList([]);
-              setAuthorsSizePageSessionStorageParam(size);
+              setAuthorsSizePageLocalStorageParam(size);
               setNumberPage(1);
-              setAuthorsNumberPageSessionStorageParam(1);
+              setAuthorsNumberPageLocalStorageParam(1);
               setMaxNumberPage(1);
-              setAuthorsMaxNumberPageSessionStorageParam(1);
+              setAuthorsMaxNumberPageLocalStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeAuthorsSearchDescriptionSessionStorageParam();
-              removeAuthorsSearchTypeSessionStorageParam();
+              removeAuthorsSearchDescriptionLocalStorageParam();
+              removeAuthorsSearchTypeLocalStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setAuthorsList(Array.of(response));
-              setAuthorsSizePageSessionStorageParam(size);
+              setAuthorsSizePageLocalStorageParam(size);
               setNumberPage(1);
-              setAuthorsNumberPageSessionStorageParam(1);
+              setAuthorsNumberPageLocalStorageParam(1);
               setMaxNumberPage(1);
-              setAuthorsMaxNumberPageSessionStorageParam(1);
+              setAuthorsMaxNumberPageLocalStorageParam(1);
               setCountAllEntity(1);
               setResponceException("");
-              setAuthorsSearchDescriptionSessionStorageParam(searchDescription);
+              setAuthorsSearchDescriptionLocalStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setAuthorsSearchTypeSessionStorageParam(searchType);
+              setAuthorsSearchTypeLocalStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -281,30 +281,30 @@ const AuthorsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setAuthorsList([]);
-              setAuthorsSizePageSessionStorageParam(size);
+              setAuthorsSizePageLocalStorageParam(size);
               setNumberPage(1);
-              setAuthorsNumberPageSessionStorageParam(1);
+              setAuthorsNumberPageLocalStorageParam(1);
               setMaxNumberPage(1);
-              setAuthorsMaxNumberPageSessionStorageParam(1);
+              setAuthorsMaxNumberPageLocalStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeAuthorsSearchDescriptionSessionStorageParam();
-              removeAuthorsSearchTypeSessionStorageParam();
+              removeAuthorsSearchDescriptionLocalStorageParam();
+              removeAuthorsSearchTypeLocalStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setAuthorsList(Array.of(response));
-              setAuthorsSizePageSessionStorageParam(size);
+              setAuthorsSizePageLocalStorageParam(size);
               setNumberPage(1);
-              setAuthorsNumberPageSessionStorageParam(1);
+              setAuthorsNumberPageLocalStorageParam(1);
               setMaxNumberPage(1);
-              setAuthorsMaxNumberPageSessionStorageParam(1);
+              setAuthorsMaxNumberPageLocalStorageParam(1);
               setCountAllEntity(1);
               setResponceException("");
-              setAuthorsSearchDescriptionSessionStorageParam(searchDescription);
+              setAuthorsSearchDescriptionLocalStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setAuthorsSearchTypeSessionStorageParam(searchType);
+              setAuthorsSearchTypeLocalStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -334,33 +334,31 @@ const AuthorsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setAuthorsList([]);
-              setAuthorsSizePageSessionStorageParam(size);
+              setAuthorsSizePageLocalStorageParam(size);
               setNumberPage(1);
-              setAuthorsNumberPageSessionStorageParam(1);
+              setAuthorsNumberPageLocalStorageParam(1);
               setMaxNumberPage(1);
-              setAuthorsMaxNumberPageSessionStorageParam(1);
+              setAuthorsMaxNumberPageLocalStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeAuthorsSearchDescriptionSessionStorageParam();
-              removeAuthorsSearchTypeSessionStorageParam();
+              removeAuthorsSearchDescriptionLocalStorageParam();
+              removeAuthorsSearchTypeLocalStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setAuthorsList(response.entity);
               setSize(response.size);
-              setAuthorsSizePageSessionStorageParam(response.size);
+              setAuthorsSizePageLocalStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setAuthorsNumberPageSessionStorageParam(response.numberPage);
+              setAuthorsNumberPageLocalStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setAuthorsMaxNumberPageSessionStorageParam(
-                response.maxNumberPage
-              );
+              setAuthorsMaxNumberPageLocalStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              setAuthorsSearchDescriptionSessionStorageParam(searchDescription);
+              setAuthorsSearchDescriptionLocalStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setAuthorsSearchTypeSessionStorageParam(searchType);
+              setAuthorsSearchTypeLocalStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -384,32 +382,30 @@ const AuthorsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setAuthorsList([]);
-              setAuthorsSizePageSessionStorageParam(size);
+              setAuthorsSizePageLocalStorageParam(size);
               setNumberPage(1);
-              setAuthorsNumberPageSessionStorageParam(1);
+              setAuthorsNumberPageLocalStorageParam(1);
               setMaxNumberPage(1);
-              setAuthorsMaxNumberPageSessionStorageParam(1);
+              setAuthorsMaxNumberPageLocalStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeAuthorsSearchDescriptionSessionStorageParam();
-              removeAuthorsSearchTypeSessionStorageParam();
+              removeAuthorsSearchDescriptionLocalStorageParam();
+              removeAuthorsSearchTypeLocalStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setAuthorsList(response.entity);
               setSize(response.size);
-              setAuthorsSizePageSessionStorageParam(response.size);
+              setAuthorsSizePageLocalStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setAuthorsNumberPageSessionStorageParam(response.numberPage);
+              setAuthorsNumberPageLocalStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setAuthorsMaxNumberPageSessionStorageParam(
-                response.maxNumberPage
-              );
+              setAuthorsMaxNumberPageLocalStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              removeAuthorsSearchDescriptionSessionStorageParam();
-              removeAuthorsSearchTypeSessionStorageParam();
+              removeAuthorsSearchDescriptionLocalStorageParam();
+              removeAuthorsSearchTypeLocalStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 401) {
@@ -522,7 +518,7 @@ const AuthorsContentSection = (props) => {
               getPaginationAuthorsByParams(
                 searchDescription,
                 searchType,
-                numberPage,
+                DEFAULT_NUMBER_PAGE,
                 size,
                 sortField,
                 sortType
@@ -542,8 +538,8 @@ const AuthorsContentSection = (props) => {
                 const numberPage = 1;
                 setSearchType(searchType);
                 setSearchDescription(searchDescription);
-                removeAuthorsSearchTypeSessionStorageParam();
-                removeAuthorsSearchDescriptionSessionStorageParam();
+                removeAuthorsSearchTypeLocalStorageParam();
+                removeAuthorsSearchDescriptionLocalStorageParam();
                 getPaginationAuthorsByParams(
                   searchDescription,
                   searchType,
@@ -585,7 +581,7 @@ const AuthorsContentSection = (props) => {
         )}
         <h2>
           {countAllEntity}{" "}
-          {(locale === LOCALE_RU && `Авторов`) ||
+          {(locale === LOCALE_RU && `Автора(ов)`) ||
             (locale === LOCALE_EN && `Authors`)}
         </h2>
         {responceException.length === 0 && authorsList.length > 0 && (
@@ -613,7 +609,7 @@ const AuthorsContentSection = (props) => {
               getPaginationAuthorsByParams(
                 searchDescription,
                 searchType,
-                numberPage,
+                DEFAULT_NUMBER_PAGE,
                 size,
                 sortField,
                 sortType

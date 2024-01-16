@@ -3,8 +3,13 @@ import {
   SEARCH_TYPE_ID,
   SEARCH_TYPE_NEWS_ID,
   SEARCH_TYPE_PART_OF_NAME,
+  getSearchTypesValues,
 } from "./type/SearchType";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../locate/Locale";
+import {
+  getAuthorsSearchDescriptionLocalStorageParam,
+  getAuthorsSearchTypeLocalStorageParam,
+} from "../../../../../params/LocaleStorageParams";
 
 const SearchAuthors = (props) => {
   const userRole = props.valueUserRole;
@@ -19,7 +24,51 @@ const SearchAuthors = (props) => {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          props.onChangeAuthorsList(searchDescription, searchType);
+
+          const foundSearchType = getSearchTypesValues().filter(
+            (searchItem) => searchItem.type === searchType
+          )[0];
+          if (foundSearchType !== undefined && foundSearchType !== null) {
+            const searchDescriptionMatch = searchDescription.match(
+              foundSearchType.pattern
+            );
+            if (searchDescriptionMatch[0] === searchDescription) {
+              props.onChangeAuthorsList(
+                searchDescription,
+                foundSearchType.type
+              );
+            } else {
+              props.onChangeAuthorsList("", "");
+            }
+          } else {
+            const searchTypeLocaleStorage =
+              getAuthorsSearchTypeLocalStorageParam();
+            const foundSearchType = getSearchTypesValues().filter(
+              (searchType) => searchType.type === searchTypeLocaleStorage
+            )[0];
+            if (foundSearchType !== null || foundSearchType === undefined) {
+              const searchDescriptionLocaleStorage =
+                getAuthorsSearchDescriptionLocalStorageParam();
+              if (searchDescriptionLocaleStorage != null) {
+                const searchDescriptionMatch =
+                  searchDescriptionLocaleStorage.match(foundSearchType.pattern);
+                if (
+                  searchDescriptionMatch[0] === searchDescriptionLocaleStorage
+                ) {
+                  props.onChangeAuthorsList(
+                    searchDescriptionLocaleStorage,
+                    foundSearchType.type
+                  );
+                } else {
+                  props.onChangeAuthorsList("", "");
+                }
+              } else {
+                props.onChangeAuthorsList("", "");
+              }
+            } else {
+              props.onChangeAuthorsList("", "");
+            }
+          }
         }}
         className="d-flex needs-validation"
       >
@@ -46,7 +95,7 @@ const SearchAuthors = (props) => {
             className="form-select"
             defaultValue={searchType}
           >
-            <option value="">
+            <option value="" disabled>
               {(locale === LOCALE_EN && "Select search type") ||
                 (locale === LOCALE_RU && "Выберите тип поиска")}
             </option>

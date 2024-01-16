@@ -1,23 +1,31 @@
-const createSearchType = (type, pattern) => {
+const createSearchType = (id, type, pattern) => {
   return {
+    id: id,
     type: type,
     pattern: pattern,
   };
 };
 
-export const SEARCH_TYPE_ID = createSearchType("ID", "\\d+");
-export const SEARCH_TYPE_TAG_NAME = createSearchType("TAG_NAME", "[^<>]{3,15}");
-export const SEARCH_TYPE_TAG_ID = createSearchType("TAG_ID", "\\d+");
+export const SEARCH_TYPE_ID = createSearchType(1, "ID", "\\d+");
+export const SEARCH_TYPE_TAG_NAME = createSearchType(
+  2,
+  "TAG_NAME",
+  "[^<>]{3,15}"
+);
+export const SEARCH_TYPE_TAG_ID = createSearchType(3, "TAG_ID", "\\d+");
 export const SEARCH_TYPE_AUTHOR_NAME = createSearchType(
+  4,
   "AUTHOR_NAME",
   "[^<>]{3,15}"
 );
-export const SEARCH_TYPE_AUTHOR_ID = createSearchType("AUTHOR_ID", "\\d+");
+export const SEARCH_TYPE_AUTHOR_ID = createSearchType(5, "AUTHOR_ID", "\\d+");
 export const SEARCH_TYPE_PART_OF_TITLE = createSearchType(
+  6,
   "PART_OF_TITLE",
   "[^<>]+"
 );
 export const SEARCH_TYPE_PART_OF_CONTENT = createSearchType(
+  7,
   "PART_OF_CONTENT",
   "[^<>]+"
 );

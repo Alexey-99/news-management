@@ -31,10 +31,6 @@ const App = () => {
   const [isNeedInit, setIsNeedInit] = useState(true);
   const [userRole, setRole] = useState(ROLE_GUEST);
 
-  const [expiredDateJwtToken, setExpiredDateJwtToken] = useState(
-    new Date(getExpiredDateJwtTokenLocaleStorageParam())
-  );
-
   const findLocale = () => {
     let result = LOCALE_EN;
     const languageLocale = getLocaleLocaleStorageParam();
@@ -53,62 +49,29 @@ const App = () => {
   const [contentSection, setContentSection] = useState();
 
   const findContentSection = (role, locale) => {
-    let result = (
-      <NewsContentSection
-        valueLocale={locale}
-        onChangeUserRole={(userRole) => setRole(userRole)}
-        valueUserRole={role}
-        onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
-          setExpiredDateJwtToken(new Date(expiredDateJwtToken));
-          setExpiredDateJwtTokenLocaleStorageParam(
-            new Date(expiredDateJwtToken)
-          );
-          console.log(expiredDateJwtToken);
-        }}
-        valueExpiredDateJwtToken={expiredDateJwtToken}
-      />
-    );
-    const codeContentSectionSessionStorage =
-      getCodeContentLocaleStorageParam();
+    const codeContentSectionSessionStorage = getCodeContentLocaleStorageParam();
     if (
       codeContentSectionSessionStorage !== null &&
       codeContentSectionSessionStorage === CODE_CONTENT_SECTION_TAGS
     ) {
-      result = (
+      const result = (
         <TagsContentSection
           valueLocale={locale}
           onChangeUserRole={(userRole) => setRole(userRole)}
           valueUserRole={role}
-          onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
-            setExpiredDateJwtToken(new Date(expiredDateJwtToken));
-            setExpiredDateJwtTokenLocaleStorageParam(
-              new Date(expiredDateJwtToken)
-            );
-            console.log(expiredDateJwtToken);
-          }}
-          valueExpiredDateJwtToken={expiredDateJwtToken}
         />
       );
       setContentSection(result);
-    }
-    if (
+    } else if (
       codeContentSectionSessionStorage !== null &&
       codeContentSectionSessionStorage === CODE_CONTENT_SECTION_USERS &&
       role === ROLE_ADMIN
     ) {
-      result = (
+      const result = (
         <UsersContentSection
           valueLocale={locale}
           onChangeUserRole={(userRole) => setRole(userRole)}
           valueUserRole={role}
-          onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
-            setExpiredDateJwtToken(new Date(expiredDateJwtToken));
-            setExpiredDateJwtTokenLocaleStorageParam(
-              new Date(expiredDateJwtToken)
-            );
-            console.log(expiredDateJwtToken);
-          }}
-          valueExpiredDateJwtToken={expiredDateJwtToken}
         />
       );
       setContentSection(result);
@@ -116,19 +79,11 @@ const App = () => {
       codeContentSectionSessionStorage !== null &&
       codeContentSectionSessionStorage === CODE_CONTENT_SECTION_AUTHORS
     ) {
-      result = (
+      const result = (
         <AuthorsContentSection
           valueLocale={locale}
           onChangeUserRole={(userRole) => setRole(userRole)}
           valueUserRole={role}
-          onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
-            setExpiredDateJwtToken(new Date(expiredDateJwtToken));
-            setExpiredDateJwtTokenLocaleStorageParam(
-              new Date(expiredDateJwtToken)
-            );
-            console.log(expiredDateJwtToken);
-          }}
-          valueExpiredDateJwtToken={expiredDateJwtToken}
         />
       );
       setContentSection(result);
@@ -136,12 +91,31 @@ const App = () => {
       codeContentSectionSessionStorage !== null &&
       codeContentSectionSessionStorage === CODE_CONTENT_SECTION_NEWS
     ) {
+      const result = (
+        <NewsContentSection
+          valueLocale={locale}
+          onChangeUserRole={(userRole) => {
+            setRole(userRole);
+            findContentSection(userRole, locale);
+          }}
+          valueUserRole={role}
+        />
+      );
       setContentSection(result);
     } else {
+      const result = (
+        <NewsContentSection
+          valueLocale={locale}
+          onChangeUserRole={(userRole) => {
+            setRole(userRole);
+            findContentSection(userRole, locale);
+          }}
+          valueUserRole={role}
+        />
+      );
       setContentSection(result);
       setCodeContentLocaleStorageParam(CODE_CONTENT_SECTION_NEWS);
     }
-    return result;
   };
 
   const findUserRole = async () => {
@@ -239,15 +213,6 @@ const App = () => {
               (locale === LOCALE_RU && "Привет пользователь")))}
       </div>
       <Header
-        onChangeExpiredDateJwtToken={(expiredDate) => {
-          setExpiredDateJwtToken(new Date(expiredDate));
-          setExpiredDateJwtTokenLocaleStorageParam(new Date(expiredDate));
-          console.log(new Date(expiredDate));
-          console.log(new Date(expiredDate) - new Date());
-          console.log(new Date(expiredDate) - new Date() - 10000);
-          console.log(new Date(expiredDate) - new Date() - 10000 > 0);
-        }}
-        valueExpiredDateJwtToken={expiredDateJwtToken}
         valueCodeSection={getCodeContentLocaleStorageParam()}
         valueLocale={locale}
         valueUserRole={userRole}

@@ -3,8 +3,13 @@ import {
   SEARCH_TYPE_ID,
   SEARCH_TYPE_NEWS_ID,
   SEARCH_TYPE_PART_OF_NAME,
+  getSearchTypesValues,
 } from "./type/SearchType";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../locate/Locale";
+import {
+  getTagsSearchDescriptionLocaleStorageParam,
+  getTagsSearchTypeLocaleStorageParam,
+} from "../../../../../params/LocaleStorageParams";
 
 const SearchTags = (props) => {
   const userRole = props.valueUserRole;
@@ -23,8 +28,48 @@ const SearchTags = (props) => {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          setSearchDescription("");
-          props.onChangeTagsList(searchDescription, searchType);
+
+          const foundSearchType = getSearchTypesValues().filter(
+            (searchItem) => searchItem.type === searchType
+          )[0];
+          if (foundSearchType !== undefined && foundSearchType !== null) {
+            const searchDescriptionMatch = searchDescription.match(
+              foundSearchType.pattern
+            );
+            if (searchDescriptionMatch[0] === searchDescription) {
+              props.onChangeTagsList(searchDescription, foundSearchType.type);
+            } else {
+              props.onChangeTagsList("", "");
+            }
+          } else {
+            const searchTypeLocaleStorage =
+              getTagsSearchTypeLocaleStorageParam();
+            const foundSearchType = getSearchTypesValues().filter(
+              (searchType) => searchType.type === searchTypeLocaleStorage
+            )[0];
+            if (foundSearchType !== null || foundSearchType === undefined) {
+              const searchDescriptionLocaleStorage =
+                getTagsSearchDescriptionLocaleStorageParam();
+              if (searchDescriptionLocaleStorage != null) {
+                const searchDescriptionMatch =
+                  searchDescriptionLocaleStorage.match(foundSearchType.pattern);
+                if (
+                  searchDescriptionMatch[0] === searchDescriptionLocaleStorage
+                ) {
+                  props.onChangeTagsList(
+                    searchDescriptionLocaleStorage,
+                    foundSearchType.type
+                  );
+                } else {
+                  props.onChangeTagsList("", "");
+                }
+              } else {
+                props.onChangeTagsList("", "");
+              }
+            } else {
+              props.onChangeTagsList("", "");
+            }
+          }
         }}
         className="d-flex needs-validation"
       >
@@ -49,8 +94,9 @@ const SearchTags = (props) => {
               setValidPattern(event.target.value.split("___")[1]);
             }}
             className="form-select"
+            defaultValue={""}
           >
-            <option value="">
+            <option value="" disabled>
               {(locale === LOCALE_EN && "Select search type") ||
                 (locale === LOCALE_RU && "Выберите тип поиска")}
             </option>

@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { validationJwtTokenUser } from "../../../../../../../query/Auth";
+import {
+  updateJwtTokennQuery,
+  validationJwtTokenUser,
+} from "../../../../../../../query/Auth";
 import { createNewsQuery } from "../../../../../../../query/News";
 import { ROLE_GUEST } from "../../../../../../../role/UserRole";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../../locate/Locale";
 import {
   getJwtTokenLocaleStorageParam,
+  removeExpiredDateJwtTokenLocaleStorageParam,
   removeJwtTokenLocaleStorageParam,
+  setJwtTokenLocaleStorageParam,
   setUserRoleLocaleStorageParam,
 } from "../../../../../../../params/LocaleStorageParams";
 
@@ -132,21 +137,6 @@ const CreateNewsForm = (props) => {
                   (locale === LOCALE_EN && `Enter news content`)}
               </label>
             </div>
-            <span>
-              {" "}
-              {(locale === LOCALE_RU && `Контент новости`) ||
-                (locale === LOCALE_EN && `News content`)}
-              :
-            </span>
-            <p
-              style={{
-                wordBreak: "break-all",
-                background: "white",
-                padding: "0 10px",
-              }}
-            >
-              {contentNews}
-            </p>
           </div>
         </div>
         <div>

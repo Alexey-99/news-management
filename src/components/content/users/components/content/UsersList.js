@@ -22,7 +22,7 @@ const UsersList = (props) => {
           >
             <div
               className="btn"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", border: "1px solid" }}
               onClick={() => {
                 const sortFieldChoose = USER_ID;
                 let sortTypeChoose = "";
@@ -41,7 +41,7 @@ const UsersList = (props) => {
           <th scope="col" className="text-center">
             <div
               className="btn"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", border: "1px solid" }}
               onClick={() => {
                 const sortFieldChoose = USER_LOGIN;
                 let sortTypeChoose = "";
@@ -60,7 +60,7 @@ const UsersList = (props) => {
           <th scope="col" className="text-center">
             <div
               className="btn"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", border: "1px solid" }}
               onClick={() => {
                 const sortFieldChoose = USER_ROLE;
                 let sortTypeChoose = "";
@@ -78,14 +78,24 @@ const UsersList = (props) => {
           </th>
           {userRole === ROLE_ADMIN && (
             <th className="text-center" scope="col">
-              {(locale === LOCALE_RU && `изменить`) ||
-                (locale === LOCALE_EN && `change`)}
+              <div
+                className="btn"
+                style={{ fontWeight: "bold", padding: "6px 12px" }}
+              >
+                {(locale === LOCALE_RU && `изменить`) ||
+                  (locale === LOCALE_EN && `change`)}
+              </div>
             </th>
           )}
           {userRole === ROLE_ADMIN && (
             <th className="text-center" scope="col">
-              {(locale === LOCALE_RU && `удалить`) ||
-                (locale === LOCALE_EN && `delete`)}
+              <div
+                className="btn"
+                style={{ fontWeight: "bold", padding: "6px 12px" }}
+              >
+                {(locale === LOCALE_RU && `удалить`) ||
+                  (locale === LOCALE_EN && `delete`)}
+              </div>
             </th>
           )}
         </tr>

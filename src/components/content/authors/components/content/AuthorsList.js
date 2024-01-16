@@ -1,6 +1,5 @@
 import { LOCALE_EN, LOCALE_RU } from "../../../../../locate/Locale";
 import { ROLE_ADMIN } from "../../../../../role/UserRole";
-import TagItem from "../../../tags/components/content/components/TagItem";
 import { AUTHOR_COUNT_NEWS, AUTHOR_ID, AUTHOR_NAME } from "../sort/SortField";
 import { ASC, DESC } from "../sort/SortType";
 import AuthorItem from "./components/AuthorItem";
@@ -16,10 +15,10 @@ const AuthorsList = (props) => {
     <table className="table table-success table-striped table-hover">
       <thead>
         <tr>
-          <th scope="col">
+          <th scope="col" className="text-center">
             <div
               className="btn"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", border: "1px solid" }}
               onClick={() => {
                 const sortFieldChoose = AUTHOR_ID;
                 let sortTypeChoose = "";
@@ -35,10 +34,10 @@ const AuthorsList = (props) => {
                 (locale === LOCALE_EN && `number of author`)}
             </div>
           </th>
-          <th scope="col">
+          <th scope="col" className="text-center">
             <div
               className="btn"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", border: "1px solid" }}
               onClick={() => {
                 const sortFieldChoose = AUTHOR_NAME;
                 let sortTypeChoose = "";
@@ -57,7 +56,7 @@ const AuthorsList = (props) => {
           <th scope="col" className="text-center">
             <div
               className="btn"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", border: "1px solid" }}
               onClick={() => {
                 const sortFieldChoose = AUTHOR_COUNT_NEWS;
                 let sortTypeChoose = "";
@@ -75,20 +74,29 @@ const AuthorsList = (props) => {
           </th>
           {userRole === ROLE_ADMIN && (
             <th className="text-center" scope="col">
-              {(locale === LOCALE_RU && `изменить`) ||
-                (locale === LOCALE_EN && `change`)}
+              <div style={{ fontWeight: "bold", padding: "6px 12px" }}>
+                {(locale === LOCALE_RU && `изменить`) ||
+                  (locale === LOCALE_EN && `change`)}
+              </div>
             </th>
           )}
           {userRole === ROLE_ADMIN && (
             <th className="text-center" scope="col">
-              {(locale === LOCALE_RU && `удалить новости`) ||
-                (locale === LOCALE_EN && `delete all news`)}
+              <div style={{ fontWeight: "bold", padding: "6px 12px" }}>
+                {(locale === LOCALE_RU && `удалить все новости автора`) ||
+                  (locale === LOCALE_EN && `delete all author's news`)}
+              </div>
             </th>
           )}
           {userRole === ROLE_ADMIN && (
             <th className="text-center" scope="col">
-              {(locale === LOCALE_RU && `удалить`) ||
-                (locale === LOCALE_EN && `delete`)}
+              {(locale === LOCALE_RU && (
+                <div>
+                  <div>удалить автора</div>
+                  <div>(вместе с его новостями)</div>
+                </div>
+              )) ||
+                (locale === LOCALE_EN && `delete author with his news`)}
             </th>
           )}
         </tr>

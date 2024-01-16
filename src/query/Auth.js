@@ -18,7 +18,9 @@ export const createJwtTokenQuery = async (personInfo) => {
 
 export const updateJwtTokennQuery = async (token) => {
   const language = getLocaleLocaleStorageParam();
-  const requestBody = { accessToken: token };
+  const requestBody = {
+    accessToken: token,
+  };
   const url = `${URL_AUTH_CONTROLLER}/token`;
   return await fetch(url, {
     mode: "cors",

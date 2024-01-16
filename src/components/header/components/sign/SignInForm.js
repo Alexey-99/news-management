@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { createJwtTokenQuery } from "../../../../query/Auth";
 import {
+  setExpiredDateJwtTokenLocaleStorageParam,
   setJwtTokenLocaleStorageParam,
+  setUserLoginLocaleStorageParam,
   setUserRoleLocaleStorageParam,
 } from "../../../../params/LocaleStorageParams";
 import { LOCALE_EN, LOCALE_RU } from "../../../../locate/Locale";
@@ -25,10 +27,13 @@ const SignInForm = (props) => {
           const responseJson = await response.json();
           const token = responseJson.accessToken;
           const userRole = responseJson.userRole;
+          const expiredDate = responseJson.expiredDate;
+          const login = responseJson.login;
           setJwtTokenLocaleStorageParam(token);
           props.onChangeUserRole(userRole);
           setUserRoleLocaleStorageParam(userRole);
-          props.onChangeExpiredDateJwtToken(responseJson.expiredDate);
+          setExpiredDateJwtTokenLocaleStorageParam(new Date(expiredDate));
+          setUserLoginLocaleStorageParam(login);
         } else if (response.status === 400) {
           const responseJson = await response.json();
           setResponceException(responseJson.errorMessage);

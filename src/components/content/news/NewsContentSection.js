@@ -31,7 +31,6 @@ import { Button, Modal } from "react-bootstrap";
 import CreateNewsForm from "./components/content/components/form/CreateNewsForm";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import { LOCALE_EN, LOCALE_RU } from "../../../locate/Locale";
-import { updateAuthorQuery } from "../../../query/Author";
 import {
   getNewsNumberPageLocaleStorageParam,
   getNewsSearchDescriptionLocaleStorageParam,
@@ -53,7 +52,6 @@ import {
 const NewsContentSection = (props) => {
   const userRole = props.valueUserRole;
   const locale = props.valueLocale;
-  const expiredDateJwtToken = props.valueExpiredDateJwtToken;
 
   const DEFAULT_NUMBER_PAGE = 1;
   const DEFAULT_SIZE_PAGE = PAGE_SIZE_VALUES[0];
@@ -165,13 +163,13 @@ const NewsContentSection = (props) => {
 
   const findSearchType = () => {
     let result = "";
-    const searchTypeSessionStorage = getNewsSearchTypeLocaleStorageParam();
-    if (searchTypeSessionStorage !== null) {
+    const searchTypeLocaleStorage = getNewsSearchTypeLocaleStorageParam();
+    if (searchTypeLocaleStorage !== null) {
       const foundSearchType = getSearchTypesValues().filter(
-        (searchType) => searchTypeSessionStorage === searchType.type
+        (searchType) => searchTypeLocaleStorage === searchType.type
       )[0];
-      if (findNumberPage !== null) {
-        result = searchTypeSessionStorage;
+      if (foundSearchType !== null) {
+        result = searchTypeLocaleStorage;
         setSearchDescriptionPattern(foundSearchType.pattern);
         setSearchType(foundSearchType.type);
       } else {
@@ -193,7 +191,7 @@ const NewsContentSection = (props) => {
       const searchTypeFound = getSearchTypesValues().filter(
         (searchTypeItem) => searchType === searchTypeItem.type
       )[0];
-      if (searchTypeFound !== null) {
+      if (searchTypeFound !== null && searchTypeFound !== undefined) {
         const searchTypePattern = searchTypeFound.pattern;
         const searchDescriptionMatch =
           searchDescriptionSessionStorage.match(searchTypePattern);
@@ -225,40 +223,6 @@ const NewsContentSection = (props) => {
     return result;
   };
 
-  const updateJwtToken = (token) => {
-    updateAuthorQuery(token)
-      .then(async (response) => {
-        if (response.ok) {
-        } else if (response.status === 200) {
-          const responseJson = await response.json();
-          setNewsList(Array.of(responseJson));
-          setNewsSizePageLocaleStorageParam(size);
-          setNumberPage(1);
-          setNewsNumberPageLocaleStorageParam(1);
-          setMaxNumberPage(1);
-          setNewsMaxNumberPageLocaleStorageParam(1);
-          setCountAllEntity(1);
-          setResponceException("");
-          setNewsSearchDescriptionLocaleStorageParam(searchDescription);
-          setSearchDescription(searchDescription);
-          setNewsSearchTypeLocaleStorageParam(searchType);
-          setSearchType(searchType);
-        } else if (response.status === 401) {
-          setResponceException("Вы не авторизованы");
-        } else if (response.status === 400) {
-          const responseJson = await response.json();
-          setResponceException(responseJson.errorMessage);
-        } else if (response.status === 403) {
-          setResponceException("У вас не достаточно прав на данную оперцию.");
-        } else {
-          setResponceException("Что-то пошло не так");
-        }
-      })
-      .catch(() => {
-        setResponceException("Что-то пошло не так");
-      });
-  };
-
   const getPaginationNewsByParams = async (
     searchDescription,
     searchType,
@@ -267,10 +231,6 @@ const NewsContentSection = (props) => {
     sortField,
     sortType
   ) => {
-    console.log(expiredDateJwtToken);
-    console.log(expiredDateJwtToken - new Date());
-    console.log(expiredDateJwtToken - new Date() - 10000);
-
     switch (searchType) {
       case SEARCH_TYPE_ID.type:
         getNewsByIdQuary(searchDescription)
@@ -724,7 +684,7 @@ const NewsContentSection = (props) => {
             getPaginationNewsByParams(
               searchDescription,
               searchType,
-              numberPage,
+              DEFAULT_NUMBER_PAGE,
               size,
               sortField,
               sortType
@@ -845,7 +805,7 @@ const NewsContentSection = (props) => {
                 getPaginationNewsByParams(
                   searchDescription,
                   searchType,
-                  numberPage,
+                  DEFAULT_NUMBER_PAGE,
                   size,
                   sortField,
                   sortType
@@ -862,7 +822,7 @@ const NewsContentSection = (props) => {
                 getPaginationNewsByParams(
                   searchDescription,
                   searchType,
-                  numberPage,
+                  DEFAULT_NUMBER_PAGE,
                   size,
                   sortField,
                   sortType
@@ -968,8 +928,8 @@ const NewsContentSection = (props) => {
                 getPaginationNewsByParams(
                   searchDescription,
                   searchType,
-                  DEFAULT_SIZE_PAGE,
                   DEFAULT_NUMBER_PAGE,
+                  DEFAULT_SIZE_PAGE,
                   DEFAULT_SORT_FIELD,
                   DEFAULT_SORT_TYPE
                 );

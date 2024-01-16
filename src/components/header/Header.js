@@ -1,5 +1,6 @@
 import { Modal } from "react-bootstrap";
 import {
+  removeExpiredDateJwtTokenLocaleStorageParam,
   removeJwtTokenLocaleStorageParam,
   setCodeContentLocaleStorageParam,
   setUserRoleLocaleStorageParam,
@@ -25,7 +26,6 @@ const Header = (props) => {
   const userRole = props.valueUserRole;
   const locale = props.valueLocale;
   const codeSection = props.valueCodeSection;
-  const expiredDateJwtToken = props.valueExpiredDateJwtToken;
 
   const [isShowModalSign, setIsShowModalSign] = useState(false);
   const [isActiveBtnSignUpForm, setIsActiveBtnSignUpForm] = useState(false);
@@ -96,18 +96,10 @@ const Header = (props) => {
               setIsShowModalSign(false);
               setUserRoleLocaleStorageParam(userRole);
             }}
-            onChangeExpiredDateJwtToken={(expiredDateJwtToken) => {
-              props.onChangeExpiredDateJwtToken(expiredDateJwtToken);
-            }}
-            valueExpiredDateJwtToken={expiredDateJwtToken}
           />
         )}
         {isActiveBtnSignUpForm && (
           <SignUpForm
-            onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
-              props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
-            }
-            valueExpiredDateJwtToken={expiredDateJwtToken}
             valueLocale={locale}
             valueUserRole={userRole}
             onChangeUserRole={(userRole) => {
@@ -147,10 +139,6 @@ const Header = (props) => {
                         props.onChangeUserRole(userRole);
                       }}
                       valueUserRole={userRole}
-                      onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
-                        props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
-                      }
-                      valueExpiredDateJwtToken={expiredDateJwtToken}
                     />
                   );
                   setCodeContentLocaleStorageParam(CODE_CONTENT_SECTION_NEWS);
@@ -174,10 +162,6 @@ const Header = (props) => {
                 onClick={() => {
                   props.onChangeSection(
                     <TagsContentSection
-                      onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
-                        props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
-                      }
-                      valueExpiredDateJwtToken={expiredDateJwtToken}
                       valueLocale={props.valueLocale}
                       onChangeUserRole={(userRole) =>
                         props.onChangeUserRole(userRole)
@@ -211,10 +195,6 @@ const Header = (props) => {
                         props.onChangeUserRole(userRole)
                       }
                       valueUserRole={userRole}
-                      onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
-                        props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
-                      }
-                      valueExpiredDateJwtToken={expiredDateJwtToken}
                     />
                   );
                   setCodeContentLocaleStorageParam(
@@ -241,10 +221,6 @@ const Header = (props) => {
                   onClick={() => {
                     props.onChangeSection(
                       <UsersContentSection
-                        onChangeExpiredDateJwtToken={(expiredDateJwtToken) =>
-                          props.onChangeExpiredDateJwtToken(expiredDateJwtToken)
-                        }
-                        valueExpiredDateJwtToken={expiredDateJwtToken}
                         valueLocale={props.valueLocale}
                         onChangeUserRole={(userRole) =>
                           props.onChangeUserRole(userRole)
@@ -296,8 +272,8 @@ const Header = (props) => {
                       onClick={() => {
                         props.onChangeUserRole(ROLE_GUEST);
                         removeJwtTokenLocaleStorageParam();
+                        removeExpiredDateJwtTokenLocaleStorageParam();
                         setUserRoleLocaleStorageParam(ROLE_GUEST);
-                        props.onChangeExpiredDateJwtToken("");
                       }}
                     >
                       {(locale === LOCALE_EN && "sign out") ||

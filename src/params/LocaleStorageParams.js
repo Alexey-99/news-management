@@ -14,8 +14,9 @@ export const setCodeContentLocaleStorageParam = (codeContentSection) => {
 
 const JWT_TOKEN = "JWT_TOKEN";
 const USER_ROLE = "USER_ROLE";
+const USER_LOGIN = "USER_LOGIN";
 const CURRENT_LANGUAGE = "CURRENT_LANGUAGE";
-const EXPIRTED_DATE_TIME_Jwt_TOKEN = "EXPIRTED_DATE_TIME_Jwt_TOKEN";
+const EXPIRTED_DATE_TIME_Jwt_TOKEN = "EXPIRTED_DATE_TIME_JWT_TOKEN";
 
 export const getJwtTokenLocaleStorageParam = () => {
   return localStorage.getItem(JWT_TOKEN);
@@ -53,6 +54,22 @@ export const setExpiredDateJwtTokenLocaleStorageParam = (
   expiredDateJwtToken
 ) => {
   localStorage.setItem(EXPIRTED_DATE_TIME_Jwt_TOKEN, expiredDateJwtToken);
+};
+
+export const removeExpiredDateJwtTokenLocaleStorageParam = () => {
+  localStorage.removeItem(EXPIRTED_DATE_TIME_Jwt_TOKEN);
+};
+
+export const getUserLoginLocaleStorageParam = () => {
+  return localStorage.getItem(USER_LOGIN);
+};
+
+export const setUserLoginLocaleStorageParam = (login) => {
+  localStorage.setItem(USER_LOGIN, login);
+};
+
+export const removeUserLoginLocaleStorageParam = () => {
+  localStorage.removeItem(USER_LOGIN);
 };
 
 //NEWS
@@ -154,70 +171,70 @@ const TAGS_SORT_TYPE = "TAGS_SORT_TYPE";
 const TAGS_SEARCH_DESCRIPTION = "TAGS_SEARCH_DESCRIPTION";
 const TAGS_SEARCH_TYPE = "TAGS_SEARCH_TYPE";
 
-export const getTagsNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_NUMBER_PAGE);
+export const getTagsNumberPageLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_NUMBER_PAGE); 
 };
 
-export const setTagsNumberPageSessionStorageParam = (numberPage) => {
-  sessionStorage.setItem(TAGS_NUMBER_PAGE, numberPage);
+export const setTagsNumberPageLocaleStorageParam = (numberPage) => {
+  localStorage.setItem(TAGS_NUMBER_PAGE, numberPage);
 };
 
-export const getTagsMaxNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_MAX_NUMBER_PAGE);
+export const getTagsMaxNumberPageLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_MAX_NUMBER_PAGE);
 };
 
-export const setTagsMaxNumberPageSessionStorageParam = (maxNumberPage) => {
-  sessionStorage.setItem(TAGS_MAX_NUMBER_PAGE, maxNumberPage);
+export const setTagsMaxNumberPageLocaleStorageParam = (maxNumberPage) => {
+  localStorage.setItem(TAGS_MAX_NUMBER_PAGE, maxNumberPage);
 };
 
-export const getTagsSizePageSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_SIZE_PAGE);
+export const getTagsSizePageLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_SIZE_PAGE);
 };
 
-export const setTagsSizePageSessionStorageParam = (sizePage) => {
-  sessionStorage.setItem(TAGS_SIZE_PAGE, sizePage);
+export const setTagsSizePageLocaleStorageParam = (sizePage) => {
+  localStorage.setItem(TAGS_SIZE_PAGE, sizePage);
 };
 
-export const getTagsSortFieldSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_SORT_FIELD);
+export const getTagsSortFieldLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_SORT_FIELD);
 };
 
-export const setTagsSortFieldSessionStorageParam = (sortField) => {
-  sessionStorage.setItem(TAGS_SORT_FIELD, sortField);
+export const setTagsSortFieldLocaleStorageParamm = (sortField) => {
+  localStorage.setItem(TAGS_SORT_FIELD, sortField);
 };
 
-export const getTagsSortTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_SORT_TYPE);
+export const getTagsSortTypeLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_SORT_TYPE);
 };
 
-export const setTagsSortTypeSessionStorageParam = (sortType) => {
-  sessionStorage.setItem(TAGS_SORT_TYPE, sortType);
+export const setTagsSortTypeLocaleStorageParam = (sortType) => {
+  localStorage.setItem(TAGS_SORT_TYPE, sortType);
 };
 
-export const getTagsSearchDescriptionSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_SEARCH_DESCRIPTION);
+export const getTagsSearchDescriptionLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_SEARCH_DESCRIPTION);
 };
 
-export const setTagsSearchDescriptionSessionStorageParam = (
+export const setTagsSearchDescriptionLocaleStorageParam = (
   searchDescription
 ) => {
-  sessionStorage.setItem(TAGS_SEARCH_DESCRIPTION, searchDescription);
+  localStorage.setItem(TAGS_SEARCH_DESCRIPTION, searchDescription);
 };
 
-export const removeTagsSearchDescriptionSessionStorageParam = () => {
-  sessionStorage.removeItem(TAGS_SEARCH_DESCRIPTION);
+export const removeTagsSearchDescriptionLocaleStorageParam = () => {
+  localStorage.removeItem(TAGS_SEARCH_DESCRIPTION);
 };
 
-export const getTagsSearchTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(TAGS_SEARCH_TYPE);
+export const getTagsSearchTypeLocaleStorageParam = () => {
+  return localStorage.getItem(TAGS_SEARCH_TYPE);
 };
 
-export const setTagsSearchTypeSessionStorageParam = (searchType) => {
-  sessionStorage.setItem(TAGS_SEARCH_TYPE, searchType);
+export const setTagsSearchTypeLocaleStorageParam = (searchType) => {
+  localStorage.setItem(TAGS_SEARCH_TYPE, searchType);
 };
 
-export const removeTagsSearchTypeSessionStorageParam = () => {
-  sessionStorage.removeItem(TAGS_SEARCH_TYPE);
+export const removeTagsSearchTypeLocaleStorageParam = () => {
+  localStorage.removeItem(TAGS_SEARCH_TYPE);
 };
 
 //AUTHORS
@@ -230,70 +247,70 @@ const AUTHORS_SORT_TYPE = "AUTHORS_SORT_TYPE";
 const AUTHORS_SEARCH_DESCRIPTION = "AUTHORS_SEARCH_DESCRIPTION";
 const AUTHORS_SEARCH_TYPE = "AUTHORS_SEARCH_TYPE";
 
-export const getAuthorsNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_NUMBER_PAGE);
+export const getAuthorsNumberPageLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_NUMBER_PAGE);
 };
 
-export const setAuthorsNumberPageSessionStorageParam = (numberPage) => {
-  sessionStorage.setItem(AUTHORS_NUMBER_PAGE, numberPage);
+export const setAuthorsNumberPageLocalStorageParam = (numberPage) => {
+  localStorage.setItem(AUTHORS_NUMBER_PAGE, numberPage);
 };
 
-export const getAuthorsMaxNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_MAX_NUMBER_PAGE);
+export const getAuthorsMaxNumberPageLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_MAX_NUMBER_PAGE);
 };
 
-export const setAuthorsMaxNumberPageSessionStorageParam = (maxNumberPage) => {
-  sessionStorage.setItem(AUTHORS_MAX_NUMBER_PAGE, maxNumberPage);
+export const setAuthorsMaxNumberPageLocalStorageParam = (maxNumberPage) => {
+  localStorage.setItem(AUTHORS_MAX_NUMBER_PAGE, maxNumberPage);
 };
 
-export const getAuthorsSizePageSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_SIZE_PAGE);
+export const getAuthorsSizePageLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_SIZE_PAGE);
 };
 
-export const setAuthorsSizePageSessionStorageParam = (sizePage) => {
-  sessionStorage.setItem(AUTHORS_SIZE_PAGE, sizePage);
+export const setAuthorsSizePageLocalStorageParam = (sizePage) => {
+  localStorage.setItem(AUTHORS_SIZE_PAGE, sizePage);
 };
 
-export const getAuthorsSortFieldSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_SORT_FIELD);
+export const getAuthorsSortFieldLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_SORT_FIELD);
 };
 
-export const setAuthorsSortFieldSessionStorageParam = (sortField) => {
-  sessionStorage.setItem(AUTHORS_SORT_FIELD, sortField);
+export const setAuthorsSortFieldLocalStorageParam = (sortField) => {
+  localStorage.setItem(AUTHORS_SORT_FIELD, sortField);
 };
 
-export const getAuthorsSortTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_SORT_TYPE);
+export const getAuthorsSortTypeLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_SORT_TYPE);
 };
 
-export const setAuthorsSortTypeSessionStorageParam = (sortType) => {
-  sessionStorage.setItem(AUTHORS_SORT_TYPE, sortType);
+export const setAuthorsSortTypeLocalStorageParam = (sortType) => {
+  localStorage.setItem(AUTHORS_SORT_TYPE, sortType);
 };
 
-export const getAuthorsSearchDescriptionSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_SEARCH_DESCRIPTION);
+export const getAuthorsSearchDescriptionLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_SEARCH_DESCRIPTION);
 };
 
-export const setAuthorsSearchDescriptionSessionStorageParam = (
+export const setAuthorsSearchDescriptionLocalStorageParam = (
   searchDescription
 ) => {
-  sessionStorage.setItem(AUTHORS_SEARCH_DESCRIPTION, searchDescription);
+  localStorage.setItem(AUTHORS_SEARCH_DESCRIPTION, searchDescription);
 };
 
-export const removeAuthorsSearchDescriptionSessionStorageParam = () => {
-  sessionStorage.removeItem(AUTHORS_SEARCH_DESCRIPTION);
+export const removeAuthorsSearchDescriptionLocalStorageParam = () => {
+  localStorage.removeItem(AUTHORS_SEARCH_DESCRIPTION);
 };
 
-export const getAuthorsSearchTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(AUTHORS_SEARCH_TYPE);
+export const getAuthorsSearchTypeLocalStorageParam = () => {
+  return localStorage.getItem(AUTHORS_SEARCH_TYPE);
 };
 
-export const setAuthorsSearchTypeSessionStorageParam = (searchType) => {
-  sessionStorage.setItem(AUTHORS_SEARCH_TYPE, searchType);
+export const setAuthorsSearchTypeLocalStorageParam = (searchType) => {
+  localStorage.setItem(AUTHORS_SEARCH_TYPE, searchType);
 };
 
-export const removeAuthorsSearchTypeSessionStorageParam = () => {
-  sessionStorage.removeItem(AUTHORS_SEARCH_TYPE);
+export const removeAuthorsSearchTypeLocalStorageParam = () => {
+  localStorage.removeItem(AUTHORS_SEARCH_TYPE);
 };
 
 const USERS_NUMBER_PAGE = "USERS_NUMBER_PAGE";

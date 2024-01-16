@@ -7,28 +7,69 @@ import {
   SEARCH_TYPE_AUTHOR_ID,
   SEARCH_TYPE_PART_OF_TITLE,
   SEARCH_TYPE_PART_OF_CONTENT,
+  getSearchTypesValues,
 } from "./type/SearchType";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../locate/Locale";
+import {
+  getNewsSearchDescriptionLocaleStorageParam,
+  getNewsSearchTypeLocaleStorageParam,
+} from "../../../../../params/LocaleStorageParams";
 
 const SearchNews = (props) => {
   const userRole = props.valueUserRole;
   const locale = props.valueLocale;
 
-  const [searchDescription, setSearchDescription] = useState(
-    props.valueSearchDescription
-  );
-  const [searchType, setSearchType] = useState(props.valueSearchType);
-  const [validPattern, setValidPattern] = useState(
-    props.valueSearchDescriptionPattern
-  );
+  const [searchDescription, setSearchDescription] = useState();
+  const [searchType, setSearchType] = useState("");
+  const [validPattern, setValidPattern] = useState();
 
   return (
     <div className={props.className}>
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          setSearchDescription("");
-          props.onChangeNewsList(searchDescription, searchType);
+
+          const foundSearchType = getSearchTypesValues().filter(
+            (searchItem) => searchItem.type === searchType
+          )[0];
+          if (foundSearchType !== undefined && foundSearchType !== null) {
+            const searchDescriptionMatch = searchDescription.match(
+              foundSearchType.pattern
+            );
+            if (searchDescriptionMatch[0] === searchDescription) {
+              props.onChangeNewsList(searchDescription, foundSearchType.type);
+            } else {
+              props.onChangeNewsList("", "");
+            }
+          } else {
+            const searchTypeLocaleStorage =
+              getNewsSearchTypeLocaleStorageParam();
+            const foundSearchType = getSearchTypesValues().filter(
+              (searchType) => searchType.type === searchTypeLocaleStorage
+            )[0];
+            if (foundSearchType !== null || foundSearchType === undefined) {
+              const searchDescriptionLocaleStorage =
+                getNewsSearchDescriptionLocaleStorageParam();
+              if (searchDescriptionLocaleStorage != null) {
+                const searchDescriptionMatch =
+                  searchDescriptionLocaleStorage.match(foundSearchType.pattern);
+                if (
+                  searchDescriptionMatch[0] === searchDescriptionLocaleStorage
+                ) {
+                  props.onChangeNewsList(
+                    searchDescriptionLocaleStorage,
+                    foundSearchType.type
+                  );
+                } else {
+                  props.onChangeNewsList("", "");
+                }
+              } else {
+                props.onChangeNewsList("", "");
+              }
+            } else {
+              props.onChangeNewsList("", "");
+            }
+          }
         }}
         className="d-flex needs-validation"
       >
@@ -44,7 +85,7 @@ const SearchNews = (props) => {
               (locale === LOCALE_EN && "Search news ...") ||
               (locale === LOCALE_RU && "Поиск новостей ...")
             }
-          />
+          /> 
           <select
             required
             style={{ borderRadius: "0" }}
@@ -53,8 +94,9 @@ const SearchNews = (props) => {
               setValidPattern(event.target.value.split("___")[1].trim());
             }}
             className="form-select"
+            defaultValue={searchType}
           >
-            <option value="">
+            <option value="" disabled>
               {(locale === LOCALE_EN && "Select search type") ||
                 (locale === LOCALE_RU && "Выберите тип поиска")}
             </option>

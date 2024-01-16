@@ -468,8 +468,8 @@ const AuthorItem = (props) => {
 
   return (
     <tr>
-      <td>{author.id}</td>
-      <td>{author.name}</td>
+      <td className="text-center">{author.id}</td>
+      <td className="text-center">{author.name}</td>
       <td className="text-center">{author.countNews}</td>
       {userRole === ROLE_ADMIN && (
         <td>

@@ -22,26 +22,26 @@ import { ROLE_ADMIN } from "../../../role/UserRole";
 import TagsList from "./components/content/TagsList";
 import CreateTagForm from "./components/form/CreateTagForm";
 import TagsPagination from "./components/pagination/TagPagination";
-import {
-  getTagsNumberPageSessionStorageParam,
-  getTagsSearchDescriptionSessionStorageParam,
-  getTagsSearchTypeSessionStorageParam,
-  getTagsSizePageSessionStorageParam,
-  getTagsSortFieldSessionStorageParam,
-  getTagsSortTypeSessionStorageParam,
-  removeTagsSearchDescriptionSessionStorageParam,
-  removeTagsSearchTypeSessionStorageParam,
-  setTagsMaxNumberPageSessionStorageParam,
-  setTagsNumberPageSessionStorageParam,
-  setTagsSearchDescriptionSessionStorageParam,
-  setTagsSearchTypeSessionStorageParam,
-  setTagsSizePageSessionStorageParam,
-  setTagsSortFieldSessionStorageParam,
-  setTagsSortTypeSessionStorageParam,
-} from "../../../params/LocaleStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import { ASC, DESC } from "./components/sort/SortType";
 import { LOCALE_EN, LOCALE_RU } from "../../../locate/Locale";
+import {
+  getTagsNumberPageLocaleStorageParam,
+  getTagsSearchDescriptionLocaleStorageParam,
+  getTagsSearchTypeLocaleStorageParam,
+  getTagsSizePageLocaleStorageParam,
+  getTagsSortFieldLocaleStorageParam,
+  getTagsSortTypeLocaleStorageParam,
+  removeTagsSearchDescriptionLocaleStorageParam,
+  removeTagsSearchTypeLocaleStorageParam,
+  setTagsMaxNumberPageLocaleStorageParam,
+  setTagsNumberPageLocaleStorageParam,
+  setTagsSearchDescriptionLocaleStorageParam,
+  setTagsSearchTypeLocaleStorageParam,
+  setTagsSizePageLocaleStorageParam,
+  setTagsSortFieldLocaleStorageParamm,
+  setTagsSortTypeLocaleStorageParam,
+} from "../../../params/LocaleStorageParams";
 
 const TagsContentSection = (props) => {
   const userRole = props.valueUserRole;
@@ -70,38 +70,38 @@ const TagsContentSection = (props) => {
     useState(false);
 
   const findNumberPage = () => {
-    const pageSessionStorage = getTagsNumberPageSessionStorageParam();
-    if (pageSessionStorage !== null) {
-      const numberPageMatchArray = pageSessionStorage.match("\\d+");
+    const pageLocaleStorage = getTagsNumberPageLocaleStorageParam();
+    if (pageLocaleStorage !== null) {
+      const numberPageMatchArray = pageLocaleStorage.match("\\d+");
       if (
         numberPageMatchArray !== null &&
         numberPageMatchArray[0] !== null &&
-        numberPageMatchArray[0] === pageSessionStorage
+        numberPageMatchArray[0] === pageLocaleStorage
       ) {
-        setNumberPage(pageSessionStorage);
-        return pageSessionStorage;
+        setNumberPage(pageLocaleStorage);
+        return pageLocaleStorage;
       } else {
-        setTagsNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+        setTagsNumberPageLocaleStorageParam(DEFAULT_NUMBER_PAGE);
         setNumberPage(DEFAULT_NUMBER_PAGE);
         return DEFAULT_NUMBER_PAGE;
       }
     } else {
-      setTagsNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+      setTagsNumberPageLocaleStorageParam(DEFAULT_NUMBER_PAGE);
       setNumberPage(DEFAULT_NUMBER_PAGE);
       return DEFAULT_NUMBER_PAGE;
     }
   };
 
   const findSizePage = () => {
-    const tagsSizePageSessionStorage = getTagsSizePageSessionStorageParam();
+    const tagsSizePageLocaleStorage = getTagsSizePageLocaleStorageParam();
     const isFoundSize =
-      PAGE_SIZE_VALUES.filter((value) => value == tagsSizePageSessionStorage)
+      PAGE_SIZE_VALUES.filter((value) => value == tagsSizePageLocaleStorage)
         .length > 0;
     if (isFoundSize) {
-      setSize(tagsSizePageSessionStorage);
-      return tagsSizePageSessionStorage;
+      setSize(tagsSizePageLocaleStorage);
+      return tagsSizePageLocaleStorage;
     } else {
-      setTagsSizePageSessionStorageParam(DEFAULT_SIZE_PAGE);
+      setTagsSizePageLocaleStorageParam(DEFAULT_SIZE_PAGE);
       setSize(DEFAULT_SIZE_PAGE);
       return DEFAULT_SIZE_PAGE;
     }
@@ -109,72 +109,69 @@ const TagsContentSection = (props) => {
 
   const findSortField = () => {
     let result = DEFAULT_SORT_FIELD;
-    const tagsSortFieldSessionStorage = getTagsSortFieldSessionStorageParam();
+    const tagsSortFieldLocaleStorage = getTagsSortFieldLocaleStorageParam();
     if (
-      tagsSortFieldSessionStorage != null &&
-      tagsSortFieldSessionStorage !== ""
+      tagsSortFieldLocaleStorage != null &&
+      tagsSortFieldLocaleStorage !== ""
     ) {
-      if (TAGS_ID === tagsSortFieldSessionStorage) {
+      if (TAGS_ID === tagsSortFieldLocaleStorage) {
         setSortField(TAGS_ID);
         result = TAGS_ID;
-      } else if (TAGS_NAME === tagsSortFieldSessionStorage) {
+      } else if (TAGS_NAME === tagsSortFieldLocaleStorage) {
         setSortField(TAGS_NAME);
         result = TAGS_NAME;
-      } else if (TAGS_COUNT_NEWS === tagsSortFieldSessionStorage) {
+      } else if (TAGS_COUNT_NEWS === tagsSortFieldLocaleStorage) {
         setSortField(TAGS_COUNT_NEWS);
         result = TAGS_COUNT_NEWS;
       } else {
         setSortField(DEFAULT_SORT_FIELD);
-        setTagsSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+        setTagsSortFieldLocaleStorageParamm(DEFAULT_SORT_FIELD);
       }
     } else {
       setSortField(DEFAULT_SORT_FIELD);
-      setTagsSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+      setTagsSortFieldLocaleStorageParamm(DEFAULT_SORT_FIELD);
     }
     return result;
   };
 
   const findSortType = () => {
     let result = DEFAULT_SORT_TYPE;
-    const tagsSortTypeSessionStorage = getTagsSortTypeSessionStorageParam();
-    if (
-      tagsSortTypeSessionStorage != null &&
-      tagsSortTypeSessionStorage !== ""
-    ) {
-      if (ASC === tagsSortTypeSessionStorage) {
+    const tagsSortTypeLocaleStorage = getTagsSortTypeLocaleStorageParam();
+    if (tagsSortTypeLocaleStorage != null && tagsSortTypeLocaleStorage !== "") {
+      if (ASC === tagsSortTypeLocaleStorage) {
         setSortType(ASC);
         result = ASC;
-      } else if (DESC === tagsSortTypeSessionStorage) {
+      } else if (DESC === tagsSortTypeLocaleStorage) {
         setSortType(DESC);
         result = DESC;
       } else {
         setSortType(DEFAULT_SORT_TYPE);
-        setTagsSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+        setTagsSortTypeLocaleStorageParam(DEFAULT_SORT_TYPE);
       }
     } else {
       setSortType(DEFAULT_SORT_TYPE);
-      setTagsSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+      setTagsSortTypeLocaleStorageParam(DEFAULT_SORT_TYPE);
     }
     return result;
   };
 
   const findSearchType = () => {
     let result = "";
-    const searchTypeSessionStorage = getTagsSearchTypeSessionStorageParam();
-    if (searchTypeSessionStorage !== null) {
+    const searchTypeLocaleStorage = getTagsSearchTypeLocaleStorageParam();
+    if (searchTypeLocaleStorage !== null) {
       const foundSearchType = getSearchTypesValues().filter(
-        (searchType) => searchTypeSessionStorage === searchType.type
+        (searchType) => searchTypeLocaleStorage === searchType.type
       )[0];
       if (findNumberPage !== null) {
-        result = searchTypeSessionStorage;
+        result = searchTypeLocaleStorage;
         setSearchDescriptionPattern(foundSearchType.pattern);
         setSearchType(foundSearchType.type);
       } else {
-        removeTagsSearchTypeSessionStorageParam();
+        removeTagsSearchTypeLocaleStorageParam();
         setSearchType("");
       }
     } else {
-      removeTagsSearchTypeSessionStorageParam();
+      removeTagsSearchTypeLocaleStorageParam();
       setSearchType("");
     }
     return result;
@@ -182,38 +179,38 @@ const TagsContentSection = (props) => {
 
   const findSearchDescription = (searchType) => {
     let result = "";
-    const searchDescriptionSessionStorage =
-      getTagsSearchDescriptionSessionStorageParam();
-    if (searchDescriptionSessionStorage !== null) {
+    const searchDescriptionLocaleStorage =
+      getTagsSearchDescriptionLocaleStorageParam();
+    if (searchDescriptionLocaleStorage !== null) {
       const searchTypeFound = getSearchTypesValues().filter(
         (searchTypeItem) => searchType === searchTypeItem.type
       )[0];
       if (searchTypeFound !== null) {
         const searchTypePattern = searchTypeFound.pattern;
         const searchDescriptionMatch =
-          searchDescriptionSessionStorage.match(searchTypePattern);
+          searchDescriptionLocaleStorage.match(searchTypePattern);
         if (
           searchDescriptionMatch !== null &&
           searchDescriptionMatch.length > 0 &&
-          searchDescriptionMatch[0] === searchDescriptionSessionStorage
+          searchDescriptionMatch[0] === searchDescriptionLocaleStorage
         ) {
-          result = searchDescriptionSessionStorage;
-          setSearchDescription(searchDescriptionSessionStorage);
+          result = searchDescriptionLocaleStorage;
+          setSearchDescription(searchDescriptionLocaleStorage);
         } else {
-          removeTagsSearchDescriptionSessionStorageParam();
-          removeTagsSearchTypeSessionStorageParam();
+          removeTagsSearchDescriptionLocaleStorageParam();
+          removeTagsSearchTypeLocaleStorageParam();
           setSearchDescription("");
           setSearchType("");
         }
       } else {
-        removeTagsSearchDescriptionSessionStorageParam();
-        removeTagsSearchTypeSessionStorageParam();
+        removeTagsSearchDescriptionLocaleStorageParam();
+        removeTagsSearchTypeLocaleStorageParam();
         setSearchDescription("");
         setSearchType("");
       }
     } else {
-      removeTagsSearchDescriptionSessionStorageParam();
-      removeTagsSearchTypeSessionStorageParam();
+      removeTagsSearchDescriptionLocaleStorageParam();
+      removeTagsSearchTypeLocaleStorageParam();
       setSearchDescription("");
       setSearchType("");
     }
@@ -234,30 +231,30 @@ const TagsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setTagsList([]);
-              setTagsSizePageSessionStorageParam(size);
+              setTagsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setTagsNumberPageSessionStorageParam(1);
+              setTagsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setTagsMaxNumberPageSessionStorageParam(1);
+              setTagsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeTagsSearchDescriptionSessionStorageParam();
-              removeTagsSearchTypeSessionStorageParam();
+              removeTagsSearchDescriptionLocaleStorageParam();
+              removeTagsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setTagsList(Array.of(response));
-              setTagsSizePageSessionStorageParam(size);
+              setTagsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setTagsNumberPageSessionStorageParam(1);
+              setTagsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setTagsMaxNumberPageSessionStorageParam(1);
+              setTagsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(1);
               setResponceException("");
-              setTagsSearchDescriptionSessionStorageParam(searchDescription);
+              setTagsSearchDescriptionLocaleStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setTagsSearchTypeSessionStorageParam(searchType);
+              setTagsSearchTypeLocaleStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -287,31 +284,31 @@ const TagsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setTagsList([]);
-              setTagsSizePageSessionStorageParam(size);
+              setTagsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setTagsNumberPageSessionStorageParam(1);
+              setTagsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setTagsMaxNumberPageSessionStorageParam(1);
+              setTagsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeTagsSearchDescriptionSessionStorageParam();
-              removeTagsSearchTypeSessionStorageParam();
+              removeTagsSearchDescriptionLocaleStorageParam();
+              removeTagsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setTagsList(response.entity);
               setSize(response.size);
-              setTagsSizePageSessionStorageParam(response.size);
+              setTagsSizePageLocaleStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setTagsNumberPageSessionStorageParam(response.numberPage);
+              setTagsNumberPageLocaleStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setTagsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+              setTagsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              setTagsSearchDescriptionSessionStorageParam(searchDescription);
+              setTagsSearchDescriptionLocaleStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setTagsSearchTypeSessionStorageParam(searchType);
+              setTagsSearchTypeLocaleStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -341,31 +338,31 @@ const TagsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setTagsList([]);
-              setTagsSizePageSessionStorageParam(size);
+              setTagsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setTagsNumberPageSessionStorageParam(1);
+              setTagsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setTagsMaxNumberPageSessionStorageParam(1);
+              setTagsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeTagsSearchDescriptionSessionStorageParam();
-              removeTagsSearchTypeSessionStorageParam();
+              removeTagsSearchDescriptionLocaleStorageParam();
+              removeTagsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setTagsList(response.entity);
               setSize(response.size);
-              setTagsSizePageSessionStorageParam(response.size);
+              setTagsSizePageLocaleStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setTagsNumberPageSessionStorageParam(response.numberPage);
+              setTagsNumberPageLocaleStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setTagsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+              setTagsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              setTagsSearchDescriptionSessionStorageParam(searchDescription);
+              setTagsSearchDescriptionLocaleStorageParam(searchDescription);
               setSearchDescription(searchDescription);
-              setTagsSearchTypeSessionStorageParam(searchType);
+              setTagsSearchTypeLocaleStorageParam(searchType);
               setSearchType(searchType);
             } else if (data.status === 401) {
               setResponceException("Вы не авторизованы");
@@ -389,30 +386,30 @@ const TagsContentSection = (props) => {
           .then(async (data) => {
             if (data.status === 204) {
               setTagsList([]);
-              setTagsSizePageSessionStorageParam(size);
+              setTagsSizePageLocaleStorageParam(size);
               setNumberPage(1);
-              setTagsNumberPageSessionStorageParam(1);
+              setTagsNumberPageLocaleStorageParam(1);
               setMaxNumberPage(1);
-              setTagsMaxNumberPageSessionStorageParam(1);
+              setTagsMaxNumberPageLocaleStorageParam(1);
               setCountAllEntity(0);
               setResponceException("");
-              removeTagsSearchDescriptionSessionStorageParam();
-              removeTagsSearchTypeSessionStorageParam();
+              removeTagsSearchDescriptionLocaleStorageParam();
+              removeTagsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 200) {
               const response = await data.json();
               setTagsList(response.entity);
               setSize(response.size);
-              setTagsSizePageSessionStorageParam(response.size);
+              setTagsSizePageLocaleStorageParam(response.size);
               setNumberPage(response.numberPage);
-              setTagsNumberPageSessionStorageParam(response.numberPage);
+              setTagsNumberPageLocaleStorageParam(response.numberPage);
               setMaxNumberPage(response.maxNumberPage);
-              setTagsMaxNumberPageSessionStorageParam(response.maxNumberPage);
+              setTagsMaxNumberPageLocaleStorageParam(response.maxNumberPage);
               setCountAllEntity(response.countAllEntity);
               setResponceException("");
-              removeTagsSearchDescriptionSessionStorageParam();
-              removeTagsSearchTypeSessionStorageParam();
+              removeTagsSearchDescriptionLocaleStorageParam();
+              removeTagsSearchTypeLocaleStorageParam();
               setSearchDescription("");
               setSearchType("");
             } else if (data.status === 401) {
@@ -496,7 +493,7 @@ const TagsContentSection = (props) => {
             getPaginationTagsByParams(
               searchDescription,
               searchType,
-              numberPage,
+              DEFAULT_NUMBER_PAGE,
               size,
               sortField,
               sortType
@@ -524,7 +521,7 @@ const TagsContentSection = (props) => {
               getPaginationTagsByParams(
                 searchDescription,
                 searchType,
-                numberPage,
+                DEFAULT_NUMBER_PAGE,
                 size,
                 sortField,
                 sortType
@@ -541,15 +538,14 @@ const TagsContentSection = (props) => {
               onClick={() => {
                 const searchType = "";
                 const searchDescription = "";
-                const numberPage = 1;
                 setSearchType(searchType);
                 setSearchDescription(searchDescription);
-                removeTagsSearchTypeSessionStorageParam();
-                removeTagsSearchDescriptionSessionStorageParam();
+                removeTagsSearchTypeLocaleStorageParam();
+                removeTagsSearchDescriptionLocaleStorageParam();
                 getPaginationTagsByParams(
                   searchDescription,
                   searchType,
-                  numberPage,
+                  DEFAULT_NUMBER_PAGE,
                   size,
                   sortField,
                   sortType

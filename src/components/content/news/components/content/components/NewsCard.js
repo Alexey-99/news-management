@@ -93,7 +93,7 @@ const NewsCard = (props) => {
         if (response.status === 200) {
           const responceJson = await response.json();
           setHavingNewsTags(responceJson);
-        } else {
+        } else if (response.status !== 204) {
           console.log(`Что-то пошло не так: ${response}`);
         }
       })
