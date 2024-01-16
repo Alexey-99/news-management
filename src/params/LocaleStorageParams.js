@@ -172,7 +172,7 @@ const TAGS_SEARCH_DESCRIPTION = "TAGS_SEARCH_DESCRIPTION";
 const TAGS_SEARCH_TYPE = "TAGS_SEARCH_TYPE";
 
 export const getTagsNumberPageLocaleStorageParam = () => {
-  return localStorage.getItem(TAGS_NUMBER_PAGE); 
+  return localStorage.getItem(TAGS_NUMBER_PAGE);
 };
 
 export const setTagsNumberPageLocaleStorageParam = (numberPage) => {
@@ -321,68 +321,68 @@ const USERS_SORT_TYPE = "USERS_SORT_TYPE";
 const USERS_SEARCH_DESCRIPTION = "USERS_SEARCH_DESCRIPTION";
 const USERS_SEARCH_TYPE = "USERS_SEARCH_TYPE";
 
-export const getUsersNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_NUMBER_PAGE);
+export const getUsersNumberPageLocalStorageParam = () => {
+  return localStorage.getItem(USERS_NUMBER_PAGE);
 };
 
-export const setUsersNumberPageSessionStorageParam = (numberPage) => {
-  sessionStorage.setItem(USERS_NUMBER_PAGE, numberPage);
+export const setUsersNumberPageLocalStorageParam = (numberPage) => {
+  localStorage.setItem(USERS_NUMBER_PAGE, numberPage);
 };
 
-export const getUsersMaxNumberPageSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_MAX_NUMBER_PAGE);
+export const getUsersMaxNumberPageLocalStorageParam = () => {
+  return localStorage.getItem(USERS_MAX_NUMBER_PAGE);
 };
 
-export const setUsersMaxNumberPageSessionStorageParam = (maxNumberPage) => {
-  sessionStorage.setItem(USERS_MAX_NUMBER_PAGE, maxNumberPage);
+export const setUsersMaxNumberPageLocalStorageParam = (maxNumberPage) => {
+  localStorage.setItem(USERS_MAX_NUMBER_PAGE, maxNumberPage);
 };
 
-export const getUsersSizePageSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_SIZE_PAGE);
+export const getUsersSizePageLocalStorageParam = () => {
+  return localStorage.getItem(USERS_SIZE_PAGE);
 };
 
-export const setUsersSizePageSessionStorageParam = (sizePage) => {
-  sessionStorage.setItem(USERS_SIZE_PAGE, sizePage);
+export const setUsersSizePageLocalStorageParam = (sizePage) => {
+  localStorage.setItem(USERS_SIZE_PAGE, sizePage);
 };
 
-export const getUsersSortFieldSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_SORT_FIELD);
+export const getUsersSortFieldLocalStorageParam = () => {
+  return localStorage.getItem(USERS_SORT_FIELD);
 };
 
-export const setUsersSortFieldSessionStorageParam = (sortField) => {
-  sessionStorage.setItem(USERS_SORT_FIELD, sortField);
+export const setUsersSortFieldLocalStorageParam = (sortField) => {
+  localStorage.setItem(USERS_SORT_FIELD, sortField);
 };
 
-export const getUsersSortTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_SORT_TYPE);
+export const getUsersSortTypeLocalStorageParam = () => {
+  return localStorage.getItem(USERS_SORT_TYPE);
 };
 
-export const setUsersSortTypeSessionStorageParam = (sortType) => {
-  sessionStorage.setItem(USERS_SORT_TYPE, sortType);
+export const setUsersSortTypeLocalStorageParam = (sortType) => {
+  localStorage.setItem(USERS_SORT_TYPE, sortType);
 };
 
-export const getUsersSearchDescriptionSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_SEARCH_DESCRIPTION);
+export const getUsersSearchDescriptionLocalStorageParam = () => {
+  return localStorage.getItem(USERS_SEARCH_DESCRIPTION);
 };
 
-export const setUsersSearchDescriptionSessionStorageParam = (
+export const setUsersSearchDescriptionLocalStorageParam = (
   searchDescription
 ) => {
-  sessionStorage.setItem(USERS_SEARCH_DESCRIPTION, searchDescription);
+  localStorage.setItem(USERS_SEARCH_DESCRIPTION, searchDescription);
 };
 
-export const removeUsersSearchDescriptionSessionStorageParam = () => {
-  sessionStorage.removeItem(USERS_SEARCH_DESCRIPTION);
+export const removeUsersSearchDescriptionLocalStorageParam = () => {
+  localStorage.removeItem(USERS_SEARCH_DESCRIPTION);
 };
 
-export const getUsersSearchTypeSessionStorageParam = () => {
-  return sessionStorage.getItem(USERS_SEARCH_TYPE);
+export const getUsersSearchTypeLocalStorageParam = () => {
+  return localStorage.getItem(USERS_SEARCH_TYPE);
 };
 
-export const setUsersSearchTypeSessionStorageParam = (searchType) => {
-  sessionStorage.setItem(USERS_SEARCH_TYPE, searchType);
+export const setUsersSearchTypeLocalStorageParam = (searchType) => {
+  localStorage.setItem(USERS_SEARCH_TYPE, searchType);
 };
 
-export const removeUsersSearchTypeSessionStorageParam = () => {
-  sessionStorage.removeItem(USERS_SEARCH_TYPE);
+export const removeUsersSearchTypeLocalStorageParam = () => {
+  localStorage.removeItem(USERS_SEARCH_TYPE);
 };

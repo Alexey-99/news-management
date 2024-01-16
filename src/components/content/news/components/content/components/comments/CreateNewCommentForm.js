@@ -3,7 +3,11 @@ import { createCommentQuery } from "../../../../../../../query/Comment";
 import { validationJwtTokenUser } from "../../../../../../../query/Auth";
 import { ROLE_GUEST } from "../../../../../../../role/UserRole";
 import { LOCALE_EN, LOCALE_RU } from "../../../../../../../locate/Locale";
-import { getJwtTokenLocaleStorageParam, removeJwtTokenLocaleStorageParam, setUserRoleLocaleStorageParam } from "../../../../../../../params/LocaleStorageParams";
+import {
+  getJwtTokenLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  setUserRoleLocaleStorageParam,
+} from "../../../../../../../params/LocaleStorageParams";
 
 const ContentNewCommentForm = (props) => {
   const userRole = props.valueUserRole;
@@ -103,19 +107,6 @@ const ContentNewCommentForm = (props) => {
                 (locale === LOCALE_EN && `Comment content`)}
             </label>
           </div>
-          <span>
-            {(locale === LOCALE_RU && `Введённый комментарий:`) ||
-              (locale === LOCALE_EN && `Entered comment content:`)}
-          </span>
-          <p
-            style={{
-              wordBreak: "break-all",
-              background: "white",
-              padding: "0 10px",
-            }}
-          >
-            {contentNewComment}
-          </p>
         </div>
         {responceException.length > 0 && (
           <div

@@ -1,24 +1,4 @@
 import { useState } from "react";
-import {
-  getJwtTokenLocaleStorageParam,
-  getUsersNumberPageSessionStorageParam,
-  getUsersSearchDescriptionSessionStorageParam,
-  getUsersSearchTypeSessionStorageParam,
-  getUsersSizePageSessionStorageParam,
-  getUsersSortFieldSessionStorageParam,
-  getUsersSortTypeSessionStorageParam,
-  removeJwtTokenLocaleStorageParam,
-  removeUsersSearchDescriptionSessionStorageParam,
-  removeUsersSearchTypeSessionStorageParam,
-  setUserRoleLocaleStorageParam,
-  setUsersMaxNumberPageSessionStorageParam,
-  setUsersNumberPageSessionStorageParam,
-  setUsersSearchDescriptionSessionStorageParam,
-  setUsersSearchTypeSessionStorageParam,
-  setUsersSizePageSessionStorageParam,
-  setUsersSortFieldSessionStorageParam,
-  setUsersSortTypeSessionStorageParam,
-} from "../../../params/LocaleStorageParams";
 import { PAGE_SIZE_VALUES } from "./components/pagination/PageSizeValues";
 import {
   SEARCH_TYPE_ID,
@@ -42,6 +22,27 @@ import SearchUsers from "./components/search/SearchUsers";
 import UsersPagination from "./components/pagination/UsersPagination";
 import UsersList from "./components/content/UsersList";
 import CreateUserForm from "./components/form/CreateUserForm";
+import {
+  getJwtTokenLocaleStorageParam,
+  getUsersNumberPageLocalStorageParam,
+  getUsersSearchDescriptionLocalStorageParam,
+  getUsersSearchTypeLocalStorageParam,
+  getUsersSizePageLocalStorageParam,
+  getUsersSortFieldLocalStorageParam,
+  getUsersSortTypeLocalStorageParam,
+  removeExpiredDateJwtTokenLocaleStorageParam,
+  removeJwtTokenLocaleStorageParam,
+  removeUsersSearchDescriptionLocalStorageParam,
+  removeUsersSearchTypeLocalStorageParam,
+  setUserRoleLocaleStorageParam,
+  setUsersMaxNumberPageLocalStorageParam,
+  setUsersNumberPageLocalStorageParam,
+  setUsersSearchDescriptionLocalStorageParam,
+  setUsersSearchTypeLocalStorageParam,
+  setUsersSizePageLocalStorageParam,
+  setUsersSortFieldLocalStorageParam,
+  setUsersSortTypeLocalStorageParam,
+} from "../../../params/LocaleStorageParams";
 
 const UsersContentSection = (props) => {
   const userRole = props.valueUserRole;
@@ -70,38 +71,38 @@ const UsersContentSection = (props) => {
     useState(false);
 
   const findNumberPage = () => {
-    const pageSessionStorage = getUsersNumberPageSessionStorageParam();
-    if (pageSessionStorage !== null) {
-      const numberPageMatchArray = pageSessionStorage.match("\\d+");
+    const pageLocalStorage = getUsersNumberPageLocalStorageParam();
+    if (pageLocalStorage !== null) {
+      const numberPageMatchArray = pageLocalStorage.match("\\d+");
       if (
         numberPageMatchArray !== null &&
         numberPageMatchArray[0] !== null &&
-        numberPageMatchArray[0] === pageSessionStorage
+        numberPageMatchArray[0] === pageLocalStorage
       ) {
-        setNumberPage(pageSessionStorage);
-        return pageSessionStorage;
+        setNumberPage(pageLocalStorage);
+        return pageLocalStorage;
       } else {
-        setUsersNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+        setUsersNumberPageLocalStorageParam(DEFAULT_NUMBER_PAGE);
         setNumberPage(DEFAULT_NUMBER_PAGE);
         return DEFAULT_NUMBER_PAGE;
       }
     } else {
-      setUsersNumberPageSessionStorageParam(DEFAULT_NUMBER_PAGE);
+      setUsersNumberPageLocalStorageParam(DEFAULT_NUMBER_PAGE);
       setNumberPage(DEFAULT_NUMBER_PAGE);
       return DEFAULT_NUMBER_PAGE;
     }
   };
 
   const findSizePage = () => {
-    const sizePageSessionStorage = getUsersSizePageSessionStorageParam();
+    const sizePageLocalStorage = getUsersSizePageLocalStorageParam();
     const isFoundSize =
-      PAGE_SIZE_VALUES.filter((value) => value == sizePageSessionStorage)
-        .length > 0;
+      PAGE_SIZE_VALUES.filter((value) => value == sizePageLocalStorage).length >
+      0;
     if (isFoundSize) {
-      setSize(sizePageSessionStorage);
-      return sizePageSessionStorage;
+      setSize(sizePageLocalStorage);
+      return sizePageLocalStorage;
     } else {
-      setUsersSizePageSessionStorageParam(DEFAULT_SIZE_PAGE);
+      setUsersSizePageLocalStorageParam(DEFAULT_SIZE_PAGE);
       setSize(DEFAULT_SIZE_PAGE);
       return DEFAULT_SIZE_PAGE;
     }
@@ -109,66 +110,66 @@ const UsersContentSection = (props) => {
 
   const findSortField = () => {
     let result = DEFAULT_SORT_FIELD;
-    const sortFieldSessionStorage = getUsersSortFieldSessionStorageParam();
-    if (sortFieldSessionStorage != null && sortFieldSessionStorage !== "") {
-      if (USER_LOGIN === sortFieldSessionStorage) {
+    const sortFieldLocalStorage = getUsersSortFieldLocalStorageParam();
+    if (sortFieldLocalStorage != null && sortFieldLocalStorage !== "") {
+      if (USER_LOGIN === sortFieldLocalStorage) {
         setSortField(USER_LOGIN);
         result = USER_LOGIN;
-      } else if (USER_ID === sortFieldSessionStorage) {
+      } else if (USER_ID === sortFieldLocalStorage) {
         setSortField(USER_ID);
         result = USER_ID;
-      } else if (USER_ROLE === sortFieldSessionStorage) {
+      } else if (USER_ROLE === sortFieldLocalStorage) {
         setSortField(USER_ROLE);
         result = USER_ROLE;
       } else {
         setSortField(DEFAULT_SORT_FIELD);
-        setUsersSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+        setUsersSortFieldLocalStorageParam(DEFAULT_SORT_FIELD);
       }
     } else {
       setSortField(DEFAULT_SORT_FIELD);
-      setUsersSortFieldSessionStorageParam(DEFAULT_SORT_FIELD);
+      setUsersSortFieldLocalStorageParam(DEFAULT_SORT_FIELD);
     }
     return result;
   };
 
   const findSortType = () => {
     let result = DEFAULT_SORT_TYPE;
-    const sortTypeSessionStorage = getUsersSortTypeSessionStorageParam();
-    if (sortTypeSessionStorage != null && sortTypeSessionStorage !== "") {
-      if (ASC === sortTypeSessionStorage) {
+    const sortTypeLocalStorage = getUsersSortTypeLocalStorageParam();
+    if (sortTypeLocalStorage != null && sortTypeLocalStorage !== "") {
+      if (ASC === sortTypeLocalStorage) {
         setSortType(ASC);
         result = ASC;
-      } else if (DESC === sortTypeSessionStorage) {
+      } else if (DESC === sortTypeLocalStorage) {
         setSortType(DESC);
         result = DESC;
       } else {
         setSortType(DEFAULT_SORT_TYPE);
-        setUsersSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+        setUsersSortTypeLocalStorageParam(DEFAULT_SORT_TYPE);
       }
     } else {
       setSortType(DEFAULT_SORT_TYPE);
-      setUsersSortTypeSessionStorageParam(DEFAULT_SORT_TYPE);
+      setUsersSortTypeLocalStorageParam(DEFAULT_SORT_TYPE);
     }
     return result;
   };
 
   const findSearchType = () => {
     let result = "";
-    const searchTypeSessionStorage = getUsersSearchTypeSessionStorageParam();
-    if (searchTypeSessionStorage !== null) {
+    const searchTypeLocalStorage = getUsersSearchTypeLocalStorageParam();
+    if (searchTypeLocalStorage !== null) {
       const foundSearchType = getSearchTypesValues().filter(
-        (searchType) => searchTypeSessionStorage === searchType.type
+        (searchType) => searchTypeLocalStorage === searchType.type
       )[0];
       if (findNumberPage !== null) {
-        result = searchTypeSessionStorage;
+        result = searchTypeLocalStorage;
         setSearchDescriptionPattern(foundSearchType.pattern);
         setSearchType(foundSearchType.type);
       } else {
-        removeUsersSearchTypeSessionStorageParam();
+        removeUsersSearchTypeLocalStorageParam();
         setSearchType("");
       }
     } else {
-      removeUsersSearchTypeSessionStorageParam();
+      removeUsersSearchTypeLocalStorageParam();
       setSearchType("");
     }
     return result;
@@ -176,38 +177,38 @@ const UsersContentSection = (props) => {
 
   const findSearchDescription = (searchType) => {
     let result = "";
-    const searchDescriptionSessionStorage =
-      getUsersSearchDescriptionSessionStorageParam();
-    if (searchDescriptionSessionStorage !== null) {
+    const searchDescriptionLocalStorage =
+      getUsersSearchDescriptionLocalStorageParam();
+    if (searchDescriptionLocalStorage !== null) {
       const searchTypeFound = getSearchTypesValues().filter(
         (searchTypeItem) => searchType === searchTypeItem.type
       )[0];
       if (searchTypeFound !== null) {
         const searchTypePattern = searchTypeFound.pattern;
         const searchDescriptionMatch =
-          searchDescriptionSessionStorage.match(searchTypePattern);
+          searchDescriptionLocalStorage.match(searchTypePattern);
         if (
           searchDescriptionMatch !== null &&
           searchDescriptionMatch.length > 0 &&
-          searchDescriptionMatch[0] === searchDescriptionSessionStorage
+          searchDescriptionMatch[0] === searchDescriptionLocalStorage
         ) {
-          result = searchDescriptionSessionStorage;
-          setSearchDescription(searchDescriptionSessionStorage);
+          result = searchDescriptionLocalStorage;
+          setSearchDescription(searchDescriptionLocalStorage);
         } else {
-          removeUsersSearchDescriptionSessionStorageParam();
-          removeUsersSearchTypeSessionStorageParam();
+          removeUsersSearchDescriptionLocalStorageParam();
+          removeUsersSearchTypeLocalStorageParam();
           setSearchDescription("");
           setSearchType("");
         }
       } else {
-        removeUsersSearchDescriptionSessionStorageParam();
-        removeUsersSearchTypeSessionStorageParam();
+        removeUsersSearchDescriptionLocalStorageParam();
+        removeUsersSearchTypeLocalStorageParam();
         setSearchDescription("");
         setSearchType("");
       }
     } else {
-      removeUsersSearchDescriptionSessionStorageParam();
-      removeUsersSearchTypeSessionStorageParam();
+      removeUsersSearchDescriptionLocalStorageParam();
+      removeUsersSearchTypeLocalStorageParam();
       setSearchDescription("");
       setSearchType("");
     }
@@ -232,32 +233,32 @@ const UsersContentSection = (props) => {
                 .then(async (data) => {
                   if (data.status === 204) {
                     setUsersList([]);
-                    setUsersSizePageSessionStorageParam(size);
+                    setUsersSizePageLocalStorageParam(size);
                     setNumberPage(1);
-                    setUsersNumberPageSessionStorageParam(1);
+                    setUsersNumberPageLocalStorageParam(1);
                     setMaxNumberPage(1);
-                    setUsersMaxNumberPageSessionStorageParam(1);
+                    setUsersMaxNumberPageLocalStorageParam(1);
                     setCountAllEntity(0);
                     setResponceException("");
-                    removeUsersSearchDescriptionSessionStorageParam();
-                    removeUsersSearchTypeSessionStorageParam();
+                    removeUsersSearchDescriptionLocalStorageParam();
+                    removeUsersSearchTypeLocalStorageParam();
                     setSearchDescription("");
                     setSearchType("");
                   } else if (data.status === 200) {
                     const response = await data.json();
                     setUsersList(Array.of(response));
-                    setUsersSizePageSessionStorageParam(size);
+                    setUsersSizePageLocalStorageParam(size);
                     setNumberPage(1);
-                    setUsersNumberPageSessionStorageParam(1);
+                    setUsersNumberPageLocalStorageParam(1);
                     setMaxNumberPage(1);
-                    setUsersMaxNumberPageSessionStorageParam(1);
+                    setUsersMaxNumberPageLocalStorageParam(1);
                     setCountAllEntity(1);
                     setResponceException("");
-                    setUsersSearchDescriptionSessionStorageParam(
+                    setUsersSearchDescriptionLocalStorageParam(
                       searchDescription
                     );
                     setSearchDescription(searchDescription);
-                    setUsersSearchTypeSessionStorageParam(searchType);
+                    setUsersSearchTypeLocalStorageParam(searchType);
                     setSearchType(searchType);
                   } else if (data.status === 401) {
                     const responseJson = await responce.json();
@@ -287,32 +288,32 @@ const UsersContentSection = (props) => {
                 .then(async (data) => {
                   if (data.status === 204) {
                     setUsersList([]);
-                    setUsersSizePageSessionStorageParam(size);
+                    setUsersSizePageLocalStorageParam(size);
                     setNumberPage(1);
-                    setUsersNumberPageSessionStorageParam(1);
+                    setUsersNumberPageLocalStorageParam(1);
                     setMaxNumberPage(1);
-                    setUsersMaxNumberPageSessionStorageParam(1);
+                    setUsersMaxNumberPageLocalStorageParam(1);
                     setCountAllEntity(0);
                     setResponceException("");
-                    removeUsersSearchDescriptionSessionStorageParam();
-                    removeUsersSearchTypeSessionStorageParam();
+                    removeUsersSearchDescriptionLocalStorageParam();
+                    removeUsersSearchTypeLocalStorageParam();
                     setSearchDescription("");
                     setSearchType("");
                   } else if (data.status === 200) {
                     const response = await data.json();
                     setUsersList(Array.of(response));
-                    setUsersSizePageSessionStorageParam(size);
+                    setUsersSizePageLocalStorageParam(size);
                     setNumberPage(1);
-                    setUsersNumberPageSessionStorageParam(1);
+                    setUsersNumberPageLocalStorageParam(1);
                     setMaxNumberPage(1);
-                    setUsersMaxNumberPageSessionStorageParam(1);
+                    setUsersMaxNumberPageLocalStorageParam(1);
                     setCountAllEntity(1);
                     setResponceException("");
-                    setUsersSearchDescriptionSessionStorageParam(
+                    setUsersSearchDescriptionLocalStorageParam(
                       searchDescription
                     );
                     setSearchDescription(searchDescription);
-                    setUsersSearchTypeSessionStorageParam(searchType);
+                    setUsersSearchTypeLocalStorageParam(searchType);
                     setSearchType(searchType);
                   } else if (data.status === 401) {
                     const responseJson = await responce.json();
@@ -349,35 +350,35 @@ const UsersContentSection = (props) => {
                 .then(async (data) => {
                   if (data.status === 204) {
                     setUsersList([]);
-                    setUsersSizePageSessionStorageParam(size);
+                    setUsersSizePageLocalStorageParam(size);
                     setNumberPage(1);
-                    setUsersNumberPageSessionStorageParam(1);
+                    setUsersNumberPageLocalStorageParam(1);
                     setMaxNumberPage(1);
-                    setUsersMaxNumberPageSessionStorageParam(1);
+                    setUsersMaxNumberPageLocalStorageParam(1);
                     setCountAllEntity(0);
                     setResponceException("");
-                    removeUsersSearchDescriptionSessionStorageParam();
-                    removeUsersSearchTypeSessionStorageParam();
+                    removeUsersSearchDescriptionLocalStorageParam();
+                    removeUsersSearchTypeLocalStorageParam();
                     setSearchDescription("");
                     setSearchType("");
                   } else if (data.status === 200) {
                     const response = await data.json();
                     setUsersList(response.entity);
                     setSize(response.size);
-                    setUsersSizePageSessionStorageParam(response.size);
+                    setUsersSizePageLocalStorageParam(response.size);
                     setNumberPage(response.numberPage);
-                    setUsersNumberPageSessionStorageParam(response.numberPage);
+                    setUsersNumberPageLocalStorageParam(response.numberPage);
                     setMaxNumberPage(response.maxNumberPage);
-                    setUsersMaxNumberPageSessionStorageParam(
+                    setUsersMaxNumberPageLocalStorageParam(
                       response.maxNumberPage
                     );
                     setCountAllEntity(response.countAllEntity);
                     setResponceException("");
-                    setUsersSearchDescriptionSessionStorageParam(
+                    setUsersSearchDescriptionLocalStorageParam(
                       searchDescription
                     );
                     setSearchDescription(searchDescription);
-                    setUsersSearchTypeSessionStorageParam(searchType);
+                    setUsersSearchTypeLocalStorageParam(searchType);
                     setSearchType(searchType);
                   } else if (data.status === 401) {
                     const responseJson = await responce.json();
@@ -407,32 +408,32 @@ const UsersContentSection = (props) => {
                 .then(async (data) => {
                   if (data.status === 204) {
                     setUsersList([]);
-                    setUsersSizePageSessionStorageParam(size);
+                    setUsersSizePageLocalStorageParam(size);
                     setNumberPage(1);
-                    setUsersNumberPageSessionStorageParam(1);
+                    setUsersNumberPageLocalStorageParam(1);
                     setMaxNumberPage(1);
-                    setUsersMaxNumberPageSessionStorageParam(1);
+                    setUsersMaxNumberPageLocalStorageParam(1);
                     setCountAllEntity(0);
                     setResponceException("");
-                    removeUsersSearchDescriptionSessionStorageParam();
-                    removeUsersSearchTypeSessionStorageParam();
+                    removeUsersSearchDescriptionLocalStorageParam();
+                    removeUsersSearchTypeLocalStorageParam();
                     setSearchDescription("");
                     setSearchType("");
                   } else if (data.status === 200) {
                     const response = await data.json();
                     setUsersList(response.entity);
                     setSize(response.size);
-                    setUsersSizePageSessionStorageParam(response.size);
+                    setUsersSizePageLocalStorageParam(response.size);
                     setNumberPage(response.numberPage);
-                    setUsersNumberPageSessionStorageParam(response.numberPage);
+                    setUsersNumberPageLocalStorageParam(response.numberPage);
                     setMaxNumberPage(response.maxNumberPage);
-                    setUsersMaxNumberPageSessionStorageParam(
+                    setUsersMaxNumberPageLocalStorageParam(
                       response.maxNumberPage
                     );
                     setCountAllEntity(response.countAllEntity);
                     setResponceException("");
-                    removeUsersSearchDescriptionSessionStorageParam();
-                    removeUsersSearchTypeSessionStorageParam();
+                    removeUsersSearchDescriptionLocalStorageParam();
+                    removeUsersSearchTypeLocalStorageParam();
                     setSearchDescription("");
                     setSearchType("");
                   } else if (data.status === 401) {
@@ -593,8 +594,8 @@ const UsersContentSection = (props) => {
                 const numberPage = 1;
                 setSearchType(searchType);
                 setSearchDescription(searchDescription);
-                removeUsersSearchTypeSessionStorageParam();
-                removeUsersSearchDescriptionSessionStorageParam();
+                removeUsersSearchTypeLocalStorageParam();
+                removeUsersSearchDescriptionLocalStorageParam();
                 getPaginationUsersByParams(
                   searchDescription,
                   searchType,

@@ -15,7 +15,7 @@ const TagsList = (props) => {
     <table className="table table-success table-striped table-hover">
       <thead>
         <tr>
-          <th scope="col text-center" className="align-middle">
+          <th scope="col " className="align-middle text-center">
             <div
               className="btn"
               style={{ fontWeight: "bold", border: "1px solid" }}
@@ -86,8 +86,18 @@ const TagsList = (props) => {
           )}
           {userRole === ROLE_ADMIN && (
             <th className="text-center align-middle" scope="col">
-              {(locale === LOCALE_RU && "удалить тег") ||
-                (locale === LOCALE_EN && `delete tag`)}
+              {(locale === LOCALE_RU && (
+                <div>
+                  <div>удалить тег</div>
+                  <div> (в том числе из новостей)</div>
+                </div>
+              )) ||
+                (locale === LOCALE_EN && (
+                  <div>
+                    <div>delete tag</div>
+                    <div>(including from the news)</div>
+                  </div>
+                ))}
             </th>
           )}
         </tr>
