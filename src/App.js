@@ -6,13 +6,11 @@ import { ROLE_ADMIN, ROLE_GUEST, ROLE_USER } from "./role/UserRole";
 import { LOCALE_EN, LOCALE_RU } from "./locate/Locale";
 import {
   getCodeContentLocaleStorageParam,
-  getExpiredDateJwtTokenLocaleStorageParam,
   getJwtTokenLocaleStorageParam,
   getLocaleLocaleStorageParam,
   getUserRoleLocaleStorageParam,
   removeJwtTokenLocaleStorageParam,
   setCodeContentLocaleStorageParam,
-  setExpiredDateJwtTokenLocaleStorageParam,
   setLocaleLocaleStorageParam,
   setUserRoleLocaleStorageParam,
 } from "./params/LocaleStorageParams";
@@ -193,7 +191,7 @@ const App = () => {
     setIsNeedInit(false);
     findUserRole();
   }
- 
+
   return (
     <div className="vh-100">
       <div
