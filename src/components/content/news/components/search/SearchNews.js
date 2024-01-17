@@ -83,9 +83,10 @@ const SearchNews = (props) => {
             className="form-control"
             placeholder={
               (locale === LOCALE_EN && "Search news ...") ||
-              (locale === LOCALE_RU && "Поиск новостей ...")
+              (locale === LOCALE_RU && "Поиск новостей ...") ||
+              "Search news ..."
             }
-          /> 
+          />
           <select
             required
             style={{ borderRadius: "0" }}

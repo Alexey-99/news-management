@@ -4,22 +4,68 @@ import {
   SEARCH_TYPE_ID,
   SEARCH_TYPE_LOGIN,
   SEARCH_TYPE_ROLE,
+  getSearchTypesValues,
 } from "./type/SearchType";
+import {
+  getUsersSearchDescriptionLocalStorageParam,
+  getUsersSearchTypeLocalStorageParam,
+} from "../../../../../params/LocaleStorageParams";
 
 const SearchUsers = (props) => {
   const userRole = props.valueUserRole;
   const locale = props.valueLocale;
 
-  const [searchDescription, setSearchDescription] = useState("");
-  const [searchType, setSearchType] = useState(props.valueSearchType);
-  const [validPattern, setValidPattern] = useState("");
+  const [searchDescription, setSearchDescription] = useState();
+  const [searchType, setSearchType] = useState("");
+  const [validPattern, setValidPattern] = useState();
 
   return (
     <div className={props.className}>
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          props.onChangeUsersList(searchDescription, searchType);
+
+          const foundSearchType = getSearchTypesValues().filter(
+            (searchItem) => searchItem.type === searchType
+          )[0];
+          if (foundSearchType !== undefined && foundSearchType !== null) {
+            const searchDescriptionMatch = searchDescription.match(
+              foundSearchType.pattern
+            );
+            if (searchDescriptionMatch[0] === searchDescription) {
+              props.onChangeUsersList(searchDescription, foundSearchType.type);
+            } else {
+              props.onChangeUsersList("", "");
+            }
+          } else {
+            const searchTypeLocaleStorage =
+              getUsersSearchTypeLocalStorageParam();
+            const foundSearchType = getSearchTypesValues().filter(
+              (searchType) => searchType.type === searchTypeLocaleStorage
+            )[0];
+            if (foundSearchType !== null || foundSearchType === undefined) {
+              const searchDescriptionLocaleStorage =
+                getUsersSearchDescriptionLocalStorageParam();
+              if (searchDescriptionLocaleStorage != null) {
+                const searchDescriptionMatch =
+                  searchDescriptionLocaleStorage.match(foundSearchType.pattern);
+                if (
+                  searchDescriptionMatch[0] === searchDescriptionLocaleStorage
+                ) {
+                  props.onChangeUsersList(
+                    searchDescriptionLocaleStorage,
+                    foundSearchType.type
+                  );
+                } else {
+                  props.onChangeUsersList("", "");
+                }
+              } else {
+                props.onChangeUsersList("", "");
+              }
+            } else {
+              props.onChangeUsersList("", "");
+            }
+          }
         }}
         className="d-flex needs-validation"
       >
@@ -33,7 +79,8 @@ const SearchUsers = (props) => {
             className="form-control"
             placeholder={
               (locale === LOCALE_EN && "Search users ...") ||
-              (locale === LOCALE_RU && "Поиск пользователей ...")
+              (locale === LOCALE_RU && "Поиск пользователей ...") ||
+              "Search users ..."
             }
           />
           <select
@@ -46,7 +93,7 @@ const SearchUsers = (props) => {
             className="form-select"
             defaultValue={searchType}
           >
-            <option value="">
+            <option value="" disabled>
               {(locale === LOCALE_EN && "Select search type") ||
                 (locale === LOCALE_RU && "Выберите тип поиска")}
             </option>
